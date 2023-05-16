@@ -1,0 +1,54 @@
+@use '@/shared/styles/variables.scss' as variables;
+
+.header {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin: 40px 0;
+
+  .nav {
+    width: 100%;
+    max-width: variables.$max-width;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+
+    .logo {
+      position: relative;
+      aspect-ratio: 166.76 / 75;
+      width: auto;
+      height: 75px;
+    }
+
+    .links {
+      background: #F9F9FF;
+      padding: 14px 28px;
+      border-radius: 12px;
+      display: flex;
+      gap: 23px;
+      flex-direction: row;
+      align-items: center;
+
+      > * {
+        display: flex;
+        padding: 0.5rem 1rem;
+        background: none;
+        font: inherit;
+        font-weight: 500;
+        font-size: 15px;
+        border: 0;
+        cursor: pointer;
+        transition: color 0.15s ease-in-out;
+
+        &:hover {
+          color: variables.$accent;
+        }
+      }
+    }
+
+    .buttons {
+      display: flex;
+      align-items: center;
+    }
+  }
+}

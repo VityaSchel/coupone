@@ -1,0 +1,16 @@
+@use '@/shared/styles/variables.scss' as variables;
+
+.button {
+  color: #fff;
+  background-color: variables.$accent;
+  border-radius: 11px;
+  padding: 0 20px;
+  height: 65px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 0;
+  font-weight: 600;
+  font-size: 15px;
+  cursor: pointer;
+}
