@@ -1,0 +1,21 @@
+@use '@/shared/styles/variables.scss' as variables;
+
+.topPromos {
+  width: 100%;
+  max-width: variables.$max-width;
+  padding: 60px 0;
+
+  .items {
+    margin-top: 30px;
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+    gap: 24px;
+    padding-top: 120px;
+    background: url('./bg_main.svg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: top center;  
+    border-radius: 20px;
+  }
+}

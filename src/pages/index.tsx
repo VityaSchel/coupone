@@ -1,5 +1,7 @@
-import { AppBar } from '@/widgets/app-bar'
 import Head from 'next/head'
+import { AppBar } from '@/widgets/app-bar'
+import { PageContentWrapper } from '@/widgets/page-content-wrapper'
+import { TopPromo } from '@/widgets/homepage/top-promo'
 
 export default function HomePage() {
   return (
@@ -11,6 +13,9 @@ export default function HomePage() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <AppBar />
+      <PageContentWrapper>
+        <TopPromo />
+      </PageContentWrapper>
     </>
   )
 }
