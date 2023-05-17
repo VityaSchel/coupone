@@ -2,5 +2,8 @@
   color: #212043;
   display: flex;
   justify-content: center;
+  background-image: url('./backgrounds/right.png'), url('./backgrounds/left.png'), url('./backgrounds/bottom.png');
+  background-position: right 321px, left 50px, center center;
+  background-repeat: no-repeat, no-repeat, no-repeat;
   background-color: #F8F7FF;
 }

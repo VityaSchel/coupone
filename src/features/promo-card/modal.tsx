@@ -1,6 +1,5 @@
-import styles from './styles.module.scss'
 import { Promo } from '@/shared/model/promo'
-import cx from 'classnames'
+import { Modal } from '@/shared/ui/modal'
 
 export function PromoModal({ promo, visible, views }: {
   promo: Promo
@@ -8,10 +7,8 @@ export function PromoModal({ promo, visible, views }: {
   views: number
 }) {
   return (
-    <div className={cx(styles.modal, { [styles.visible]: visible })}>
-      <div className={styles.content}>
-        Promo modal
-      </div>
-    </div>
+    <Modal visible={visible}>
+      Promo modal
+    </Modal>
   )
 }

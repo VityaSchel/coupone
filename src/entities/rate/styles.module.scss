@@ -1,0 +1,15 @@
+.rate {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+
+  .star {
+    color: #eee;
+    width: 21px;
+    height: 21px;
+
+    &.active {
+      color: #FF3062;
+    }
+  }
+}

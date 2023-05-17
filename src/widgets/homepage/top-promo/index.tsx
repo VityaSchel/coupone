@@ -23,12 +23,12 @@ export function TopPromo() {
         />
         <Promo
           promo={{
-            title: 'Промокод на Whoosh',
+            title: 'Just food',
             description: 'Действует в приложение',
             image: 'https://placehold.co/264x158/png',
             addDate: '2023-05-15T14:48:48.320Z',
             expireDate: '2023-05-21T14:48:48.320Z',
-            rate: 5,
+            rate: 3,
             sale: 'Скидка 50 рублей',
             code: 'GOODRIDE'
           }}
@@ -36,12 +36,12 @@ export function TopPromo() {
         />
         <Promo
           promo={{
-            title: 'Промокод на Whoosh',
+            title: 'Кресла Cougar',
             description: 'Действует в приложение',
             image: 'https://placehold.co/264x158/png',
             addDate: '2023-05-15T14:48:48.320Z',
             expireDate: '2023-05-21T14:48:48.320Z',
-            rate: 5,
+            rate: 0,
             sale: 'Скидка 50 рублей',
             code: 'GOODRIDE'
           }}
