@@ -22,6 +22,7 @@ export function Promo({ promo, views }: {
       />
       <PromoModal
         visible={modalVisible}
+        onClose={() => setModalVisible(false)}
         promo={promo}
         views={views}
       />

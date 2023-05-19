@@ -1,0 +1,116 @@
+.modal {
+  display: flex;
+  gap: 32px;
+  flex-direction: column;
+  width: 900px !important;
+  max-width: 100%;
+
+  .content {
+    display: flex;
+    gap: 24px;
+
+    .image {
+      position: relative;
+      aspect-ratio: 486 / 365;
+      width: 58%;
+      height: auto;
+      box-shadow: 0 4px 4px 0px rgba(0, 0, 0, 0.25);
+
+      &, img {
+        border-radius: 20px;
+      }
+    }
+
+    .info {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      flex: 1;
+
+      h2 {
+        font-weight: 800;
+        font-size: 28px;
+        line-height: 35px;
+        letter-spacing: 0.01em;
+        color: #212043;
+      }
+
+      .bar {
+        display: flex;
+        flex-direction: row;
+        gap: 10px;
+
+        .sale {
+          font-weight: 600;
+          font-size: 13px;
+          line-height: 16px;
+          color: #FFFFFF;
+          padding: 10px 27px;
+          background: #FF3062;
+          border-radius: 99px;
+        }
+
+        .views {
+          display: flex;
+          flex-direction: row;
+          font-weight: 700;
+          font-size: 15px;
+          color: #2E3A59;
+          background: #F1EFFF;
+          border-radius: 18px;
+
+          span {
+            padding: 0 20px 0 10px;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+          }
+        }
+      }
+
+      .expireDate {
+        color: #15C993;
+
+        .value {
+          color: #2E3A59;
+        }
+      }
+    }
+    
+    .close {
+      color: #aaa;
+
+      button {
+        background: none;
+        border: 0;
+        cursor: pointer;
+        color: #aaa;
+
+        &, svg {
+          width: 20px;
+          height: 20px;
+        }
+      }
+    }
+  }
+
+  .actions {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 15px;
+
+    .promocode {
+      border: 3px dashed #15C993;
+      border-radius: 11px;
+      font-style: normal;
+      font-weight: 700;
+      font-size: 21px;
+      line-height: 26px;
+      letter-spacing: 0.02em;
+      color: #212043;
+      padding: 18px 45px;
+    }
+  }
+}

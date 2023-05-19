@@ -2,8 +2,10 @@ import React from 'react'
 import cx from 'classnames'
 import styles from './styles.module.scss'
 
-export function Modal({ visible, children }: React.PropsWithChildren<{
+export function Modal({ visible, onClose, className, children }: React.PropsWithChildren<{
   visible: boolean
+  onClose?: () => any
+  className?: string
 }>) {
   React.useEffect(() => {
     if(visible) {
@@ -14,8 +16,15 @@ export function Modal({ visible, children }: React.PropsWithChildren<{
   }, [visible])
 
   return (
-    <div className={cx(styles.modal, { [styles.visible]: visible })}>
-      <div className={styles.content}>
+    <div 
+      className={cx(styles.modal, { [styles.visible]: visible })}
+      onClick={(e) => {
+        if(e.currentTarget === e.target) {
+          onClose?.()
+        }
+      }}
+    >
+      <div className={cx(styles.content, className)}>
         {children}
       </div>
     </div>
