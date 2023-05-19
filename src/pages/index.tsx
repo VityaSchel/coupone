@@ -2,6 +2,7 @@ import Head from 'next/head'
 import { AppBar } from '@/widgets/app-bar'
 import { PageContentWrapper } from '@/widgets/page-content-wrapper'
 import { TopPromo } from '@/widgets/homepage/top-promo'
+import { AllPromos } from '@/widgets/homepage/all-promos'
 
 export default function HomePage() {
   return (
@@ -15,6 +16,7 @@ export default function HomePage() {
       <AppBar />
       <PageContentWrapper>
         <TopPromo />
+        <AllPromos />
       </PageContentWrapper>
     </>
   )

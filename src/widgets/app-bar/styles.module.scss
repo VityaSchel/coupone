@@ -6,6 +6,11 @@
   justify-content: center;
   margin: 40px 0;
 
+  @media screen and (max-width: variables.$breakpoint-tablet) {
+    margin: 0;
+    padding: 15px;
+  }
+
   .nav {
     width: 100%;
     max-width: variables.$max-width;
@@ -28,6 +33,10 @@
       gap: 23px;
       flex-direction: row;
       align-items: center;
+
+      @media screen and (max-width: variables.$breakpoint-tablet) {
+        display: none;
+      }
 
       > * {
         display: flex;

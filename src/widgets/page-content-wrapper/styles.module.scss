@@ -1,7 +1,9 @@
 .main {
   color: #212043;
   display: flex;
+  flex-direction: column;
   justify-content: center;
+  align-items: center;
   background-image: url('./backgrounds/right.png'), url('./backgrounds/left.png'), url('./backgrounds/bottom.png');
   background-position: right 321px, left 50px, center center;
   background-repeat: no-repeat, no-repeat, no-repeat;

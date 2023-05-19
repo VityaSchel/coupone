@@ -1,3 +1,5 @@
+@use '@/shared/styles/variables.scss' as variables;
+
 .modal {
   display: flex;
   gap: 32px;
@@ -9,6 +11,10 @@
     display: flex;
     gap: 24px;
 
+    @media screen and (max-width: variables.$breakpoint-tablet) {
+      flex-direction: column;
+    }
+
     .image {
       position: relative;
       aspect-ratio: 486 / 365;
@@ -18,6 +24,10 @@
 
       &, img {
         border-radius: 20px;
+      }
+
+      @media screen and (max-width: variables.$breakpoint-tablet) {
+        width: 100%;
       }
     }
 
@@ -80,6 +90,11 @@
     
     .close {
       color: #aaa;
+
+      @media screen and (max-width: variables.$breakpoint-tablet) {
+        order: -2;
+        align-self: flex-end;
+      }
 
       button {
         background: none;
