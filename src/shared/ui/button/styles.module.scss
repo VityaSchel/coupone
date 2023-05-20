@@ -1,16 +1,30 @@
 @use '@/shared/styles/variables.scss' as variables;
 
 .button {
-  color: #fff;
-  background-color: variables.$accent;
-  border-radius: 11px;
-  padding: 0 20px;
-  height: 65px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
   border: 0;
   font-weight: 600;
   font-size: 15px;
   cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  &.contained {
+    color: #fff;
+    background-color: variables.$accent;
+    border-radius: 11px;
+    padding: 0 20px;
+    height: 65px;
+  }
+
+  &.text {
+    font-family: inherit;
+    font-weight: 500;
+    font-size: 23px;
+    line-height: 28px;
+    letter-spacing: 0.01em;
+    color: #8C88A6;
+    padding: 50px 0;
+    background: none;
+  }
 }

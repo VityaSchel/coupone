@@ -1,6 +1,8 @@
 import { Promo } from '@/features/promo-card'
 import styles from './styles.module.scss'
 import { Headline } from '@/widgets/headline'
+import { Button } from '@/shared/ui/button'
+import Link from 'next/link'
 
 export function AllPromos() {
   return (
@@ -60,6 +62,9 @@ export function AllPromos() {
           views={15015}
         />
       </div>
+      <Link href='/promos/all' className={styles.showAll}>
+        <Button variant='text'>Показать больше &rarr;</Button>
+      </Link>
     </section>
   )
 }

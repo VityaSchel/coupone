@@ -27,8 +27,18 @@
       width: 100%;
     }
 
+    @media screen and (max-width: 930px) {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+    }
+
     @media screen and (max-width: variables.$breakpoint-tablet) {
       flex-direction: column;
     }
+  }
+
+  .showAll {
+    display: flex;
+    justify-content: center;
   }
 }

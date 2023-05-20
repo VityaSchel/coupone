@@ -7,7 +7,7 @@
 
   @media screen and (max-width: variables.$breakpoint-tablet) {
     padding: 0 15px;
-    margin-top: 50px;
+    margin: 50px 0;
 
     h1 {
       text-align: center;
@@ -29,6 +29,14 @@
 
     > * {
       width: 25%;
+    }
+
+    @media screen and (max-width: 1020px) {
+      padding-top: 60px;
+
+      > * {
+        width: 30%;
+      }
     }
 
     @media screen and (max-width: variables.$breakpoint-tablet) {

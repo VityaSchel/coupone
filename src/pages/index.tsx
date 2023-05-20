@@ -3,6 +3,7 @@ import { AppBar } from '@/widgets/app-bar'
 import { PageContentWrapper } from '@/widgets/page-content-wrapper'
 import { TopPromo } from '@/widgets/homepage/top-promo'
 import { AllPromos } from '@/widgets/homepage/all-promos'
+import { Footer } from '@/widgets/footer'
 
 export default function HomePage() {
   return (
@@ -18,6 +19,7 @@ export default function HomePage() {
         <TopPromo />
         <AllPromos />
       </PageContentWrapper>
+      <Footer />
     </>
   )
 }
