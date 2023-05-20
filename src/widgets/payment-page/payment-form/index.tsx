@@ -1,4 +1,5 @@
 import styles from './styles.module.scss'
+import { Headline } from '@/widgets/headline'
 import { PaymentResponse } from '@/shared/model/api/api'
 
 export function PaymentForm({ payment }: {
@@ -6,11 +7,12 @@ export function PaymentForm({ payment }: {
 }) {
   return (
     <section className={styles.form}>
-      {payment.amount}
-      {payment.amountWithoutDiscount}
-      {payment.firstCheckbox}
-      {payment.secondCheckbox}
-      {payment.status}
+      <Headline variant='h1'>Оформление заказа</Headline>
+      <span>{payment.amount}</span>
+      <span>{payment.amountWithoutDiscount}</span>
+      <span>{payment.firstCheckbox}</span>
+      <span>{payment.secondCheckbox}</span>
+      <span>{payment.status}</span>
     </section>
   )
 }

@@ -1,7 +1,6 @@
 import { PaymentResponse } from '@/shared/model/api/api'
 import { AppBar } from '@/widgets/app-bar'
 import { Footer } from '@/widgets/footer'
-import { Headline } from '@/widgets/headline'
 import { PageContentWrapper } from '@/widgets/page-content-wrapper'
 import { PaymentForm } from '@/widgets/payment-page/payment-form'
 import { GetServerSidePropsContext, GetServerSidePropsResult } from 'next'
@@ -20,7 +19,6 @@ export default function PaymentUUIDPage({ payment }: {
       </Head>
       <AppBar />
       <PageContentWrapper>
-        <Headline variant='h1'>Оформление заказа</Headline>
         <PaymentForm
           payment={payment}
         />
@@ -32,6 +30,11 @@ export default function PaymentUUIDPage({ payment }: {
 
 export async function getServerSideProps(context: GetServerSidePropsContext<{ paymentUUID: string }>): Promise<GetServerSidePropsResult<{ payment: PaymentResponse }>> {
   const paymentResponse = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/payments/${context.params?.paymentUUID}`)
+  if(paymentResponse.status !== 200) {
+    return {
+      notFound: true
+    }
+  }
   const paymentResult = await paymentResponse.json() as PaymentResponse
 
   return {
