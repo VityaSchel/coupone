@@ -39,7 +39,7 @@
         display: none;
       }
 
-      > * {
+      > *, .contactsButton {
         display: flex;
         padding: 0.5rem 1rem;
         background: none;
@@ -59,6 +59,94 @@
     .buttons {
       display: flex;
       align-items: center;
+      gap: 6px;
+
+      .supportButton {
+        @media screen and (max-width: variables.$breakpoint-tablet) {
+          font-size: 0px;
+          background-image: url(./support.svg);
+          background-size: cover;
+          width: 39px;
+          height: 39px;
+        }
+      }
+
+      .mobileMenuButton {
+        width: 39px;
+        height: 39px;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: #F1EFFF;
+        color: #000;
+
+        @media screen and (min-width: calc(#{variables.$breakpoint-tablet} + 1px)) {
+          display: none;
+        }
+
+        & > * {
+          position: absolute;
+        }
+      }
+
+      .mobileMenu {
+        position: absolute;
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 20px;
+        top: 80px;
+        right: 30px;
+        box-shadow: 0px 39px 67px 5px rgba(43, 36, 88, 0.28);
+        width: 160px;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 120ms ease-in-out;
+
+        &.visible {
+          opacity: 1;
+          pointer-events: all;
+        }
+        
+        > * {
+          font-weight: 500;
+          font-size: 13px;
+          line-height: 16px;
+          color: #212043;
+        }
+      }
+    }
+
+    .contactsContainer {
+      position: relative;
+      font-size: 10px;
+
+      .contacts {
+        position: absolute;
+        opacity: 0;
+        pointer-events: none;
+        background-color: #fff;
+        padding: 20px;
+        width: 400px;
+        z-index: 7;
+        border-radius: 20px;
+        margin-top: 30px;
+        box-shadow: 0px 31.5708px 109.445px 7.36652px rgba(132, 124, 191, 0.5);
+        cursor: auto;
+
+        > * {
+          gap: 1em;
+        }
+      }
+
+      .contactsButton:hover + .contacts,
+      .contacts:hover {
+        opacity: 1;
+        pointer-events: all;
+      }
     }
   }
 }

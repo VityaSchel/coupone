@@ -33,6 +33,7 @@
     }
 
     @media screen and (max-width: variables.$breakpoint-tablet) {
+      display: flex;
       flex-direction: column;
     }
   }

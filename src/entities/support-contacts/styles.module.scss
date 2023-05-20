@@ -1,0 +1,63 @@
+@use '@/shared/styles/variables.scss' as variables;
+
+.contacts {
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  gap: 2em;
+
+  .heading {
+    font-weight: 500;
+    font-size: 1.9em;
+    line-height: 147.8%;
+    letter-spacing: 0.01em;
+    color: #212043;
+  }
+
+  .email {
+    background: #F1EFFF;
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+
+    span {
+      font-weight: 500;
+      font-size: 1.5em;
+      letter-spacing: 0.01em;
+      color: #8C88A6;
+      text-align: center;
+    }
+
+    .value {
+      font-weight: 600;
+      font-size: 2em;
+      color: #212043;
+    }
+  }
+
+  .text {
+    margin-top: 30px;
+    font-weight: 600;
+    font-size: 1.75em;
+    color: #212043;
+  }
+
+  .phone {
+    color: variables.$accent;
+    font-weight: 600;
+    font-size: 3em;
+  }
+
+  .time {
+    font-weight: 500;
+    font-size: 1.75em;
+    color: #8C88A6;
+
+    span {
+      color: #212043;
+    }
+  }
+}

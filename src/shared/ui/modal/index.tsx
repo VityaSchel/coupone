@@ -1,12 +1,15 @@
 import React from 'react'
 import cx from 'classnames'
 import styles from './styles.module.scss'
+import { useHotkeys } from 'react-hotkeys-hook'
 
 export function Modal({ visible, onClose, className, children }: React.PropsWithChildren<{
   visible: boolean
   onClose?: () => any
   className?: string
 }>) {
+  useHotkeys('esc', () => visible && onClose?.(), [visible, onClose])
+
   React.useEffect(() => {
     if(visible) {
       document.body.classList.add(styles.bodyLock)
