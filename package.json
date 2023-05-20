@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "codegen": "swagger-typescript-api -p $(cat .env | grep NEXT_PUBLIC_BACKEND_URL= | cut -d '=' -f2)/swagger.json -o ./src/shared/model/api -n api.ts"
   },
   "dependencies": {
     "@types/node": "20.1.5",
@@ -28,6 +29,7 @@
     "@typescript-eslint/eslint-plugin": "^5.59.6",
     "@typescript-eslint/parser": "^5.59.6",
     "eslint": "^8.40.0",
-    "eslint-plugin-react": "^7.32.2"
+    "eslint-plugin-react": "^7.32.2",
+    "swagger-typescript-api": "^12.0.4"
   }
 }
