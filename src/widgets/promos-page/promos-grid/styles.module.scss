@@ -1,0 +1,20 @@
+@use '@/shared/styles/variables.scss' as variables;
+
+.promos {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 50px 0;
+  width: 100%;
+  max-width: variables.$max-width;
+
+  .grid {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+
+    @media screen and (max-width: variables.$breakpoint-tablet) {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+}

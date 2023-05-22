@@ -28,7 +28,7 @@ export function AppBar() {
               <SupportContacts />
             </div>
           </div>
-          <Link href='/promo'>Все промокоды</Link>
+          <Link href='/promos'>Все промокоды</Link>
           <Link href='/faq'>Вопросы и ответы</Link>
           <Link href='/about'>О компании</Link>
         </div>
@@ -43,7 +43,7 @@ export function AppBar() {
           <div className={cx(styles.mobileMenu, { [styles.visible]: mobileMenuVisible })}>
             <Link href='/login'>Вход</Link>
             <Link href='/contacts'>Контакты</Link>
-            <Link href='/promos/all'>Все промокоды</Link>
+            <Link href='/promos'>Все промокоды</Link>
             <Link href='/faq'>Вопросы и ответы</Link>
             <Link href='/about'>О компании</Link>
           </div>

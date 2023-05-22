@@ -49,6 +49,7 @@ export interface CouponResponse {
   code: string;
   dateAdded: string;
   description: string;
+  hot: boolean;
   image: string;
   name: string;
   rating: number;
@@ -394,10 +395,17 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      * @name CouponsList
      * @request GET:/coupons
      */
-    couponsList: (params: RequestParams = {}) =>
+    couponsList: (
+      query?: {
+        /** proxy hot filter */
+        "filter[hot]"?: boolean;
+      },
+      params: RequestParams = {},
+    ) =>
       this.request<CouponResponse[], ErrorResponse>({
         path: `/coupons`,
         method: "GET",
+        query: query,
         ...params,
       }),
   };

@@ -1,16 +1,18 @@
+import React from 'react'
 import styles from './styles.module.scss'
-import { Headline } from '@/widgets/headline'
-import Fire from './fire.svg'
-import { Promo } from '@/features/promo-card'
 import { CouponResponse } from '@/shared/model/api/api'
+import { Promo } from '@/features/promo-card'
+import { Headline } from '@/widgets/headline'
 
-export function TopPromo({ promos }: {
-  promos: CouponResponse[]
+export function PromosGrid({ initialList }: {
+  initialList: CouponResponse[]
 }) {
+  const [promos, setPromos] = React.useState(initialList)
+
   return (
-    <section className={styles.topPromos}>
-      <Headline variant='h1'>Самые горячие промокоды <Fire /></Headline>
-      <div className={styles.items}>
+    <div className={styles.promos}>
+      <Headline variant='h1'>Все промокоды</Headline>
+      <div className={styles.grid}>
         {promos.map(promo => (
           <Promo
             key={`${promo.name} ${promo.code}`}
@@ -28,6 +30,6 @@ export function TopPromo({ promos }: {
           />
         ))}
       </div>
-    </section>
+    </div>
   )
 }
