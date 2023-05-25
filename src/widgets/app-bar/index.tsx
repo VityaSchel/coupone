@@ -33,6 +33,7 @@ export function AppBar() {
           <Link href='/about'>О компании</Link>
         </div>
         <div className={styles.buttons}>
+          <Link href='/login'><Button className={styles.loginButton} variant='alternative'>Войти</Button></Link>
           <Button onClick={() => setSupportVisible(true)} className={styles.supportButton}>Поддержка</Button>
           <Button onClick={() => setMobileMenuVisible(!mobileMenuVisible)} className={styles.mobileMenuButton}>
             <Hamburger 

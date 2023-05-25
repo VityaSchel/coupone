@@ -12,9 +12,16 @@
     width: 100%;
     display: grid;
     grid-template-columns: repeat(4, 1fr);
+    gap: 24px;
 
     @media screen and (max-width: variables.$breakpoint-tablet) {
       grid-template-columns: repeat(2, 1fr);
     }
+  }
+
+  .showAll {
+    display: flex;
+    justify-content: center;
+    text-align: center;
   }
 }

@@ -32,15 +32,28 @@ export default function HomePage({ topPromos, allPromos }: HomePageProps) {
 }
 
 export async function getServerSideProps(): Promise<GetServerSidePropsResult<HomePageProps>> {
-  const hotRequest = await fetch(process.env.NEXT_PUBLIC_BACKEND_URL + '/coupons?filter%5Bhot%5D=true')
+  const hotRequest = await fetch(process.env.NEXT_PUBLIC_BACKEND_URL + '/coupons?' + new URLSearchParams({
+    'filter[hot]': 'true',
+    limit: '3',
+    offset: '0'
+  }))
+  const allPromosRequest = await fetch(process.env.NEXT_PUBLIC_BACKEND_URL + '/coupons?' + new URLSearchParams({
+    'filter[hot]': 'false',
+    limit: '4',
+    offset: '0'
+  }))
+  if (hotRequest.status !== 200 || allPromosRequest.status !== 200) {
+    console.error(await hotRequest.text(), await allPromosRequest.text())
+    throw new Error('Expected status 200 for promos list')
+  }
   const hotResponse = await hotRequest.json() as CouponResponse[]
-  const allPromosRequest = await fetch(process.env.NEXT_PUBLIC_BACKEND_URL + '/coupons?filter%5Bhot%5D=false')
+  
   const allPromosResponse = await allPromosRequest.json() as CouponResponse[]
 
   return {
     props: {
-      topPromos: hotResponse.slice(0, 3),
-      allPromos: allPromosResponse.slice(0, 4)
+      topPromos: hotResponse,
+      allPromos: allPromosResponse
     }
   }
 }

@@ -49,11 +49,14 @@ export interface CouponResponse {
   code: string;
   dateAdded: string;
   description: string;
+  discountDescription: string;
   hot: boolean;
+  id: number;
   image: string;
   name: string;
   rating: number;
   validUntil: string;
+  views: number;
 }
 
 export interface ErrorResponse {
@@ -397,8 +400,12 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      */
     couponsList: (
       query?: {
-        /** proxy hot filter */
+        /** coupons hot filter */
         "filter[hot]"?: boolean;
+        /** coupons limit */
+        limit?: number;
+        /** coupons offset */
+        offset?: number;
       },
       params: RequestParams = {},
     ) =>

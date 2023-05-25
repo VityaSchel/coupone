@@ -1,13 +1,18 @@
 @use '@/shared/styles/variables.scss' as variables;
+@use 'sass:color';
 
 .button {
   border: 0;
   font-weight: 600;
   font-size: 15px;
-  cursor: pointer;
   display: flex;
   justify-content: center;
   align-items: center;
+  cursor: pointer;
+
+  &[disabled] {
+    cursor: auto;
+  }
 
   &.contained {
     color: #fff;
@@ -18,13 +23,31 @@
   }
 
   &.text {
+    $defaultColor: #8C88A6;
     font-family: inherit;
     font-weight: 500;
     font-size: 23px;
     line-height: 28px;
     letter-spacing: 0.01em;
-    color: #8C88A6;
+    color: $defaultColor;
     padding: 50px 0;
     background: none;
+
+    &[disabled] {
+      color: color.scale($defaultColor, $lightness: 30%, $saturation: -100%);
+    }
+  }
+
+  &.alternative {
+    @extend .contained;
+    color: #000;
+    background-color: #F1EFFF;
+    transition-property: color, background-color;
+    transition-duration: 120ms;
+
+    &:hover {
+      background-color: variables.$accent;
+      color: #fff;
+    }
   }
 }

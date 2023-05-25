@@ -3,7 +3,7 @@ import { AppBar } from '@/widgets/app-bar'
 import { Footer } from '@/widgets/footer'
 import { Headline } from '@/widgets/headline'
 import { PageContentWrapper } from '@/widgets/page-content-wrapper'
-import { PromosGrid } from '@/widgets/promos-page/promos-grid'
+import { AllPromosPageGrid } from '@/widgets/all-promos-page/all-promos-grid'
 import { GetServerSidePropsResult } from 'next'
 import Head from 'next/head'
 
@@ -20,7 +20,7 @@ export default function AllPromosPage({ initialPromos }: AllPromosPageProps) {
       </Head>
       <AppBar />
       <PageContentWrapper>
-        <PromosGrid initialList={initialPromos} />
+        <AllPromosPageGrid initialList={initialPromos} />
       </PageContentWrapper>
       <Footer />
     </>
@@ -29,9 +29,12 @@ export default function AllPromosPage({ initialPromos }: AllPromosPageProps) {
 
 
 export async function getServerSideProps(): Promise<GetServerSidePropsResult<AllPromosPageProps>> {
-  const allPromosRequest = await fetch(process.env.NEXT_PUBLIC_BACKEND_URL + '/coupons?filter%5Bhot%5D=false')
+  const allPromosRequest = await fetch(process.env.NEXT_PUBLIC_BACKEND_URL + '/coupons?' + new URLSearchParams({
+    'filter[hot]': 'false',
+    limit: String(4 * 1),
+    offset: '0'
+  }))
   const allPromosResponse = await allPromosRequest.json() as CouponResponse[]
-  console.log(allPromosResponse)
 
   return {
     props: {
