@@ -1,3 +1,5 @@
+@use '@/shared/styles/variables.scss' as variables;
+
 .timer {
   display: flex;
   justify-content: center;
@@ -5,9 +7,13 @@
 
   font-weight: 800;
   font-size: 107px;
-  line-height: 130px;
   letter-spacing: 0.01em;
   color: #15C993;
+  
+  @media screen and (max-width: variables.$breakpoint-tablet) {
+    font-size: 50px;
+    line-height: 90%;
+  }
 
   > * {
     width: 12%;
@@ -23,6 +29,10 @@
       font-weight: 600;
       font-size: 26px;
       line-height: normal;
+
+      @media screen and (max-width: variables.$breakpoint-tablet) {
+        font-size: 10px;
+      }
     }
   }
 }

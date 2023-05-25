@@ -17,7 +17,9 @@ export function AppBar() {
     <header className={styles.header}>
       <nav className={styles.nav}>
         <div className={styles.logo}>
-          <Image src={LargeLogo} priority fill alt='Logo' />
+          <Link href='/'>
+            <Image src={LargeLogo} priority fill alt='Logo' />
+          </Link>
         </div>
         <div className={styles.links}>
           <div className={styles.contactsContainer}>
@@ -33,7 +35,7 @@ export function AppBar() {
           <Link href='/about'>О компании</Link>
         </div>
         <div className={styles.buttons}>
-          <Link href='/login'><Button className={styles.loginButton} variant='alternative'>Войти</Button></Link>
+          <Link href='/login' className={styles.loginButton}><Button variant='alternative'>Войти</Button></Link>
           <Button onClick={() => setSupportVisible(true)} className={styles.supportButton}>Поддержка</Button>
           <Button onClick={() => setMobileMenuVisible(!mobileMenuVisible)} className={styles.mobileMenuButton}>
             <Hamburger 

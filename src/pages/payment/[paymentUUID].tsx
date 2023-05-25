@@ -5,6 +5,7 @@ import { PageContentWrapper } from '@/widgets/page-content-wrapper'
 import { PaymentForm } from '@/widgets/payment-page/payment-form'
 import { GetServerSidePropsContext, GetServerSidePropsResult } from 'next'
 import Head from 'next/head'
+import Script from 'next/script'
 
 type PaymentPageProps = { payment: PaymentResponse, paymentID: string }
 
@@ -25,6 +26,7 @@ export default function PaymentUUIDPage({ payment, paymentID }: PaymentPageProps
         />
       </PageContentWrapper>
       <Footer />
+      <Script src="https://widget.cloudpayments.ru/bundles/cloudpayments.js"></Script>
     </>
   )
 }

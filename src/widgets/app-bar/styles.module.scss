@@ -31,9 +31,15 @@
       padding: 14px 28px;
       border-radius: 12px;
       display: flex;
-      gap: 23px;
+      gap: 10px;
+      width: 673px;
+      justify-content: space-between;
       flex-direction: row;
       align-items: center;
+
+      @media screen and (max-width: 980px) {
+        padding: 14px;
+      }
 
       @media screen and (max-width: variables.$breakpoint-tablet) {
         display: none;
@@ -50,6 +56,10 @@
         cursor: pointer;
         transition: color 0.15s ease-in-out;
 
+        @media screen and (max-width: 980px) {
+          padding: 0.5rem 0;
+        }
+
         &:hover {
           color: variables.$accent;
         }
@@ -60,6 +70,12 @@
       display: flex;
       align-items: center;
       gap: 6px;
+
+      .loginButton {
+        @media screen and (max-width: variables.$breakpoint-tablet) {
+          display: none;
+        }
+      }
 
       .supportButton {
         @media screen and (max-width: variables.$breakpoint-tablet) {
@@ -86,7 +102,7 @@
         }
 
         & > * {
-          position: absolute;
+          position: absolute !important;
         }
       }
 

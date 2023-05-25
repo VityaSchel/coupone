@@ -20,6 +20,12 @@
     background-image: url('./form-background-1.png'), url('./form-background-2.png'); 
     background-position: bottom left, bottom right;
     background-repeat: no-repeat, no-repeat;
+    overflow: hidden;
+
+    @media screen and (max-width: variables.$breakpoint-tablet) {
+      border-radius: 24px;
+      background-size: 15%, 15%;
+    }
 
     .timer {
       width: 100%;
@@ -33,6 +39,10 @@
       justify-content: center;
       align-items: center;
 
+      @media screen and (max-width: variables.$breakpoint-tablet) {
+        background-position: center;
+      }
+
       .discount {
         position: absolute;
         left: 50%;
@@ -41,13 +51,22 @@
         background-color: #fff;
         border-radius: 99px;
         font-weight: 600;
-        font-size: 25.7833px;
-        line-height: 24px;
+        font-size: 24px;
         letter-spacing: 0.02em;
         color: #15C993;
-        padding: 16px 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
         width: 430px;
+        height: 48px;
+        max-width: 50%;
         text-align: center;
+
+        @media screen and (max-width: variables.$breakpoint-tablet) {
+          width: 230px;
+          font-size: 16px;
+          height: 20px;
+        }
       }
     }
 
@@ -57,12 +76,20 @@
       justify-content: center;
       padding: 55px 0;
       position: relative;
+      
+      @media screen and (max-width: variables.$breakpoint-tablet) {
+        padding: 32px 16px;
+      }
 
       .price {
         position: absolute;
         left: 0;
         display: flex;
         flex-direction: column;
+
+        @media screen and (max-width: variables.$breakpoint-tablet) {
+          display: none;
+        }
 
         .old {
           font-size: 25px;

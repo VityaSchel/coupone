@@ -2,19 +2,21 @@ import styles from './styles.module.scss'
 import React from 'react'
 import { Formik } from 'formik'
 import { Headline } from '@/widgets/headline'
-import { PaymentResponse } from '@/shared/model/api/api'
+import { PaymentPayResponse, PaymentResponse } from '@/shared/model/api/api'
 import * as Yup from 'yup'
 import { Input } from '@/shared/ui/input'
 import { Button } from '@/shared/ui/button'
 import Checkbox from '@x5io/flat-uikit/dist/checkbox'
 import PaySystems from './pay_systems.svg'
 import { Timer } from '@/widgets/payment-page/timer'
+import { useRouter } from 'next/router'
 
 export function PaymentForm({ payment, paymentID }: {
   payment: PaymentResponse
   paymentID: string
 }) {
   const [expireDate, setExpireDate] = React.useState(new Date(Date.now() + 1000*60*60*2))
+  const router = useRouter()
 
   React.useEffect(() => {
     const openDateString = window.localStorage.getItem(`payment_${paymentID}`)
@@ -48,13 +50,34 @@ export function PaymentForm({ payment, paymentID }: {
             validationSchema={
               Yup.object({
                 email: Yup.string().email('Введите почту').required('Это обязательное поле'),
-                checkbox1: Yup.boolean().required(),
-                checkbox2: Yup.boolean().required(),
+                checkbox1: Yup.boolean().isTrue(' ').required(),
+                checkbox2: Yup.boolean().isTrue(' ').required(),
               })
             }
             validateOnChange={false} validateOnBlur={false}
-            onSubmit={(values, { setSubmitting }) => {
-              alert(JSON.stringify(values, null, 2))
+            onSubmit={async (values, { setSubmitting }) => {
+              setSubmitting(true)
+              const widget = new cp.CloudPayments()
+              await fetch(process.env.NEXT_PUBLIC_BACKEND_URL + `/payments/${paymentID}/set-email`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                  email: values.email
+                })
+              })
+              const payRequest = await fetch(process.env.NEXT_PUBLIC_BACKEND_URL + `/payments/${paymentID}/pay`)
+              const payResponse = await payRequest.json() as PaymentPayResponse
+              setSubmitting(false)
+              widget.pay('auth',
+                payResponse.cloudpayments,
+                {
+                  onSuccess: function (options) {
+                    alert('Спасибо за покупку!')
+                    router.push('/')
+                  },
+                  onFail: function (reason, options) { console.error(reason) }
+                }
+              )
             }}
           >
             {({
@@ -83,6 +106,7 @@ export function PaymentForm({ payment, paymentID }: {
                 <Checkbox
                   value={values.checkbox1}
                   name='checkbox1'
+                  onChange={handleChange}
                   error={errors.checkbox1}
                 >
                   {payment.firstCheckbox}
@@ -90,6 +114,7 @@ export function PaymentForm({ payment, paymentID }: {
                 <Checkbox
                   value={values.checkbox2}
                   name='checkbox2'
+                  onChange={handleChange}
                   error={errors.checkbox2}
                 >
                   {payment.secondCheckbox}
