@@ -1,3 +1,117 @@
-.form {
+@use '@/shared/styles/variables.scss' as variables;
+
+.container {
   padding: 60px 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  max-width: variables.$max-width;
+  gap: 24px;
+
+  .paymentForm {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+    background-color: #fff;
+    width: 100%;
+    border: 2px solid #15C993;
+    border-radius: 50px;
+    background-image: url('./form-background-1.png'), url('./form-background-2.png'); 
+    background-position: bottom left, bottom right;
+    background-repeat: no-repeat, no-repeat;
+
+    .timer {
+      width: 100%;
+      aspect-ratio: 1170 / 316;
+      height: auto;
+      background-image: url('./timer-background.svg');
+      background-repeat: no-repeat;
+      background-size: cover;
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      .discount {
+        position: absolute;
+        left: 50%;
+        bottom: 0;
+        transform: translate(-50%, 50%);
+        background-color: #fff;
+        border-radius: 99px;
+        font-weight: 600;
+        font-size: 25.7833px;
+        line-height: 24px;
+        letter-spacing: 0.02em;
+        color: #15C993;
+        padding: 16px 0;
+        width: 430px;
+        text-align: center;
+      }
+    }
+
+    .formContainer {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      padding: 55px 0;
+      position: relative;
+
+      .price {
+        position: absolute;
+        left: 0;
+        display: flex;
+        flex-direction: column;
+
+        .old {
+          font-size: 25px;
+          line-height: 24px;
+          letter-spacing: 0.02em;
+          text-decoration-line: line-through;
+          color: #1B7258;
+          margin-left: 12px;
+          width: 100%;
+          text-align: center;
+          font-weight: 500;
+          font-size: 25px;
+        }
+
+        .new {
+          background: #15C993;
+          border-radius: 0px 52px 52px 0px;
+          font-weight: 800;
+          font-size: 77px;
+          line-height: 73px;
+          letter-spacing: 0.02em;
+          color: #FFFFFF;
+          padding: 22px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          width: 195px;
+          margin-top: 10px;
+        }
+      }
+
+      .form {
+        width: 600px;
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+
+        label {
+          font-family: inherit;
+        }
+
+        .paySystems {
+          align-self: center;
+        }
+
+        .error {
+          color: red;
+        }
+      }
+    }
+  }
 }

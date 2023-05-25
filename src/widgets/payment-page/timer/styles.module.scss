@@ -1,0 +1,28 @@
+.timer {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+
+  font-weight: 800;
+  font-size: 107px;
+  line-height: 130px;
+  letter-spacing: 0.01em;
+  color: #15C993;
+
+  > * {
+    width: 12%;
+    display: flex;
+    justify-content: center;
+  }
+  
+  > div {
+    align-items: center;
+    flex-direction: column;
+
+    span:last-child {
+      font-weight: 600;
+      font-size: 26px;
+      line-height: normal;
+    }
+  }
+}

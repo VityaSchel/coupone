@@ -6,9 +6,9 @@ import { PaymentForm } from '@/widgets/payment-page/payment-form'
 import { GetServerSidePropsContext, GetServerSidePropsResult } from 'next'
 import Head from 'next/head'
 
-export default function PaymentUUIDPage({ payment }: { 
-  payment: PaymentResponse 
-}) {
+type PaymentPageProps = { payment: PaymentResponse, paymentID: string }
+
+export default function PaymentUUIDPage({ payment, paymentID }: PaymentPageProps) {
   return (
     <>
       <Head>
@@ -21,6 +21,7 @@ export default function PaymentUUIDPage({ payment }: {
       <PageContentWrapper>
         <PaymentForm
           payment={payment}
+          paymentID={paymentID}
         />
       </PageContentWrapper>
       <Footer />
@@ -28,8 +29,10 @@ export default function PaymentUUIDPage({ payment }: {
   )
 }
 
-export async function getServerSideProps(context: GetServerSidePropsContext<{ paymentUUID: string }>): Promise<GetServerSidePropsResult<{ payment: PaymentResponse }>> {
-  const paymentResponse = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/payments/${context.params?.paymentUUID}`)
+export async function getServerSideProps(context: GetServerSidePropsContext<{ paymentUUID: string }>): Promise<GetServerSidePropsResult<PaymentPageProps>> {
+  const paymentID = context.params?.paymentUUID
+  if (!paymentID) return { notFound: true }
+  const paymentResponse = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/payments/${paymentID}`)
   if(paymentResponse.status !== 200) {
     return {
       notFound: true
@@ -39,7 +42,8 @@ export async function getServerSideProps(context: GetServerSidePropsContext<{ pa
 
   return {
     props: {
-      payment: paymentResult
+      payment: paymentResult,
+      paymentID
     }
   }
 }
