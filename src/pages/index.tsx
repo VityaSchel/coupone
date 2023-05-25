@@ -5,7 +5,7 @@ import { TopPromo } from '@/widgets/homepage/top-promo'
 import { AllPromos } from '@/widgets/homepage/all-promos'
 import { Footer } from '@/widgets/footer'
 import { GetServerSidePropsResult } from 'next'
-import { CouponResponse } from '@/shared/model/api/api'
+import { CouponResponse, CouponsResponse } from '@/shared/model/api/api'
 
 type HomePageProps = {
   topPromos: CouponResponse[]
@@ -46,14 +46,14 @@ export async function getServerSideProps(): Promise<GetServerSidePropsResult<Hom
     console.error(await hotRequest.text(), await allPromosRequest.text())
     throw new Error('Expected status 200 for promos list')
   }
-  const hotResponse = await hotRequest.json() as CouponResponse[]
+  const hotResponse = await hotRequest.json() as CouponsResponse
   
-  const allPromosResponse = await allPromosRequest.json() as CouponResponse[]
+  const allPromosResponse = await allPromosRequest.json() as CouponsResponse
 
   return {
     props: {
-      topPromos: hotResponse,
-      allPromos: allPromosResponse
+      topPromos: hotResponse.coupons,
+      allPromos: allPromosResponse.coupons
     }
   }
 }

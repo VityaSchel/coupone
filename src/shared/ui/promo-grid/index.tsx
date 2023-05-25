@@ -15,6 +15,7 @@ export function PromoGrid({ promos }: {
         <Promo
           key={`${promo.name} ${promo.code}`}
           promo={{
+            authRequired: promo.authRequired,
             title: promo.name,
             description: promo.description,
             image: promo.image,

@@ -8,6 +8,8 @@ import Image from 'next/image'
 import Cart from './cart.svg'
 import Close from './close.svg'
 import copy from 'copy-to-clipboard'
+import { FaExclamationCircle } from 'react-icons/fa'
+import cx from 'classnames'
 
 export function PromoModal({ promo, visible, onClose, views }: {
   promo: Promo
@@ -51,6 +53,12 @@ export function PromoModal({ promo, visible, onClose, views }: {
               month: 'long'
             }).format(new Date(promo.expireDate))}</span>
           </div>
+          {promo.authRequired && (
+            <div className={styles.authRequired}>
+              <FaExclamationCircle />
+              <span>Чтобы открыть доступ к данному промокоду - необходимо зарегистрироваться.</span>
+            </div>
+          )}
         </div>
         <div className={styles.close}>
           <button onClick={onClose}>
@@ -59,8 +67,12 @@ export function PromoModal({ promo, visible, onClose, views }: {
         </div>
       </div>
       <div className={styles.actions}>
-        <span className={styles.promocode}>{promo.code}</span>
-        <Button onClick={handleCopyPromo}>{isCopied ? 'Скопировано' : 'Скопировать промокод'}</Button>
+        <span className={cx(styles.promocode, { [styles.disabled]: promo.authRequired })}>
+          {promo.authRequired ? '*'.repeat(promo.code.length) : promo.code}
+        </span>
+        <Button onClick={handleCopyPromo} disabled={promo.authRequired}>
+          {isCopied ? 'Скопировано' : 'Скопировать промокод'}
+        </Button>
       </div>
     </Modal>
   )

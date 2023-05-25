@@ -20,6 +20,10 @@
     border-radius: 11px;
     padding: 0 20px;
     height: 65px;
+
+    &[disabled] {
+      background-color: #8D88A6;
+    }
   }
 
   &.text {

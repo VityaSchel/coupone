@@ -8,13 +8,13 @@ import { PromoGrid } from '@/shared/ui/promo-grid'
 export function AllPromos({ promos }: {
   promos: CouponResponse[]
 }) {
-  const normalizedPromos = [...promos, ...new Array(3 - promos.length).fill(promos[0])]
+  // const normalizedPromos = [...promos, ...new Array(3 - promos.length).fill(promos[0])]
 
   return (
     <section className={styles.allPromos}>
       <Headline variant='h1'>Все акции</Headline>
       <div className={styles.promos}>
-        <PromoGrid promos={normalizedPromos} />
+        <PromoGrid promos={promos} />
       </div>
       <Link href='/promos' className={styles.showAll}>
         <Button variant='text'>Показать больше &rarr;</Button>

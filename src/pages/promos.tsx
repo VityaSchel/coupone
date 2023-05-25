@@ -1,4 +1,4 @@
-import { CouponResponse } from '@/shared/model/api/api'
+import { CouponResponse, CouponsResponse } from '@/shared/model/api/api'
 import { AppBar } from '@/widgets/app-bar'
 import { Footer } from '@/widgets/footer'
 import { Headline } from '@/widgets/headline'
@@ -7,7 +7,7 @@ import { AllPromosPageGrid } from '@/widgets/all-promos-page/all-promos-grid'
 import { GetServerSidePropsResult } from 'next'
 import Head from 'next/head'
 
-type AllPromosPageProps = { initialPromos: CouponResponse[] }
+type AllPromosPageProps = { initialPromos: CouponsResponse }
 
 export default function AllPromosPage({ initialPromos }: AllPromosPageProps) {
   return (
@@ -34,7 +34,7 @@ export async function getServerSideProps(): Promise<GetServerSidePropsResult<All
     limit: String(4 * 1),
     offset: '0'
   }))
-  const allPromosResponse = await allPromosRequest.json() as CouponResponse[]
+  const allPromosResponse = await allPromosRequest.json() as CouponsResponse
 
   return {
     props: {

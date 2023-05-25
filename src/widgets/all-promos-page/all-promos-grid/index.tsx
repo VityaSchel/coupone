@@ -1,17 +1,16 @@
 import React from 'react'
 import styles from './styles.module.scss'
-import { CouponResponse } from '@/shared/model/api/api'
+import { CouponsResponse } from '@/shared/model/api/api'
 import { Headline } from '@/widgets/headline'
 import { PromoGrid } from '@/shared/ui/promo-grid'
-import Link from 'next/link'
 import { Button } from '@/shared/ui/button'
 
 export function AllPromosPageGrid({ initialList }: {
-  initialList: CouponResponse[]
+  initialList: CouponsResponse
 }) {
-  const [promos, setPromos] = React.useState(initialList)
-  const [offset, setOffset] = React.useState(initialList.length)
-  const [count, setCount] = React.useState(999999)
+  const [promos, setPromos] = React.useState(initialList.coupons)
+  const [offset, setOffset] = React.useState(initialList.coupons.length)
+  const [count, setCount] = React.useState(initialList.count)
   const [isLoading, setIsLoading] = React.useState(false)
 
   const loadMore = async () => {
@@ -21,9 +20,10 @@ export function AllPromosPageGrid({ initialList }: {
       limit: String(4 * 1),
       offset: String(offset)
     }))
-    const newCouponsResponse = await newCouponsRequest.json() as CouponResponse[]
-    setOffset(offset + newCouponsResponse.length)
-    setPromos([...promos, ...newCouponsResponse])
+    const newCouponsResponse = await newCouponsRequest.json() as CouponsResponse
+    setOffset(offset + newCouponsResponse.coupons.length)
+    setPromos([...promos, ...newCouponsResponse.coupons])
+    setCount(newCouponsResponse.count)
     setIsLoading(false)
   }
 

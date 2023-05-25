@@ -1,4 +1,5 @@
 export type Promo = {
+  authRequired: boolean
   /** Any image URL consumed to next/image */
   image: string
   title: string

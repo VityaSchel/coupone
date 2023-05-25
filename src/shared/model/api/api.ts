@@ -59,6 +59,11 @@ export interface CouponResponse {
   views: number;
 }
 
+export interface CouponsResponse {
+  count: number;
+  coupons: CouponResponse[];
+}
+
 export interface ErrorResponse {
   message: string;
 }
@@ -409,7 +414,7 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
       },
       params: RequestParams = {},
     ) =>
-      this.request<CouponResponse[], ErrorResponse>({
+      this.request<CouponsResponse, ErrorResponse>({
         path: `/coupons`,
         method: "GET",
         query: query,
