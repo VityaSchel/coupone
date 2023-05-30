@@ -1,0 +1,10 @@
+.intro {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  width: 100%;
+
+  .introCard {
+    width: 440px;
+  }
+}
