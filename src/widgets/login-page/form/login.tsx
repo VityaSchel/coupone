@@ -3,8 +3,12 @@ import { Formik } from 'formik'
 import { Button } from '@/shared/ui/button'
 import * as Yup from 'yup'
 import { Input } from '@/shared/ui/input'
+import { LoginBody, LoginResponse } from '@/shared/model/api/api'
+import { useRouter } from 'next/router'
 
 export function LoginPageForm({ setResetScreen }: { setResetScreen: () => any }) {
+  const router = useRouter()
+
   return (
     <Formik
       initialValues={{ email: '', password: '' }}
@@ -18,7 +22,24 @@ export function LoginPageForm({ setResetScreen }: { setResetScreen: () => any })
         })
       }
       onSubmit={(values, { setSubmitting }) => {
-        // fetch(process.env.NEXT_PUBLIC_BACKEND_URL + '/login')
+        fetch(process.env.NEXT_PUBLIC_BACKEND_URL + '/auth/login', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            email: values.email,
+            password: values.password
+          } satisfies LoginBody)
+        })
+          .then(async request => {
+            if(request.status === 200) {
+              const response = await request.json() as LoginResponse
+              response.token
+              router.push('/')
+            } else {
+              alert('Ошибка!')
+            }
+          })
+          .finally(() => setSubmitting(false))
       }}
     >
       {({

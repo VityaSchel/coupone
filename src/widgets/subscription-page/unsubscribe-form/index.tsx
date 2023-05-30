@@ -4,6 +4,7 @@ import { Formik } from 'formik'
 import * as Yup from 'yup'
 import { Button } from '@/shared/ui/button'
 import HelpImage from '@/assets/subscription-page/help.svg'
+import { SubscriptionUnsubscribeBody } from '@/shared/model/api/api'
 
 export function SubscriptionPageUnsubsribeForm() {
   return (
@@ -29,7 +30,14 @@ function Form() {
         })
       }
       onSubmit={(values, { setSubmitting }) => {
-        fetch(process.env.NEXT_PUBLIC_BACKEND_URL + '/subscriptions/unsubscribe')
+        fetch(process.env.NEXT_PUBLIC_BACKEND_URL + '/subscriptions/unsubscribe', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            firstNumbers: values.first6digits,
+            lastNumbers: values.last4digits
+          } satisfies SubscriptionUnsubscribeBody)
+        })
           .then((response) => alert(response.status === 200 ? 'Вы успешно отписались!' : 'Ошибка!'))
           .catch(() => alert('Ошибка!'))
           .finally(() => setSubmitting(false))

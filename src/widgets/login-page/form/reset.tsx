@@ -3,8 +3,12 @@ import { Formik } from 'formik'
 import { Button } from '@/shared/ui/button'
 import * as Yup from 'yup'
 import { Input } from '@/shared/ui/input'
+import { PasswordResetBody } from '@/shared/model/api/api'
+import { useRouter } from 'next/router'
 
 export function ResetPasswordForm({ setLoginScreen }: { setLoginScreen: () => any }) {
+  const router = useRouter()
+  
   return (
     <Formik
       initialValues={{ email: '', password: '' }}
@@ -12,13 +16,27 @@ export function ResetPasswordForm({ setLoginScreen }: { setLoginScreen: () => an
         Yup.object({
           email: Yup.string()
             .email('Некорректный email')
-            .required('Заполните это поле'),
-          password: Yup.string()
             .required('Заполните это поле')
         })
       }
       onSubmit={(values, { setSubmitting }) => {
-        // fetch(process.env.NEXT_PUBLIC_BACKEND_URL + '/login')
+        fetch(process.env.NEXT_PUBLIC_BACKEND_URL + '/auth/password_reset', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            email: values.email
+          } satisfies PasswordResetBody)
+        })
+          .then(response => {
+            if(response.status === 200) {
+              alert('Ссылка для сброса отправлена!')
+              setLoginScreen()
+            } else {
+              alert('Ошибка!')
+            }
+          })
+          .catch(() => alert('Ошибка!'))
+          .finally(() => setSubmitting(false))
       }}
     >
       {({
