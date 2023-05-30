@@ -1,10 +1,60 @@
-.instruction {
+@use '@/shared/styles/variables.scss' as variables;
+
+.unsubscribeForm {
   display: flex;
   justify-content: space-between;
-  align-items: flex-start;
+  align-items: center;
   width: 100%;
+  padding: 60px;
+  gap: 50px;
 
-  .instructionCard {
-    width: 100%;
+  @media screen and (max-width: variables.$breakpoint-large-tablet) {
+    padding: 30px;
+  }
+
+  @media screen and (max-width: variables.$breakpoint-tablet) {
+    padding: 0 20px;
+    flex-direction: column;
+  }
+
+  .form {
+    display: flex;
+    gap: 20px;
+    flex-direction: column;
+    width: 342px;
+
+    @media screen and (max-width: variables.$breakpoint-tablet) {
+      width: 100%;
+    }
+
+    .headline {
+      font-weight: 800;
+      font-size: 24px;
+
+      span {
+        color: #15C993;
+        display: block;
+      }
+
+      color: #192B4F;
+    }
+
+    .stacked {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .error {
+      color: red;
+    }
+
+    .button {
+      width: 100%;
+    }
+  }
+
+  svg {
+    max-width: 100%;
   }
 }

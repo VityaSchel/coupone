@@ -1,10 +1,30 @@
+@use '@/shared/styles/variables.scss' as variables;
+
 .secondBlock {
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
   width: 100%;
+  gap: 50px;
 
   .secondBlockCard {
     width: 552px;
+    max-width: 100%;
+  }
+
+  @media screen and (max-width: variables.$breakpoint-tablet) {
+    flex-direction: column-reverse;
+    
+    .secondBlockCard {
+      width: 100%;
+    }
+
+    svg {
+      width: 100%;
+    }
+  }
+
+  svg {
+    max-width: 100%;
   }
 }

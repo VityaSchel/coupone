@@ -12,4 +12,16 @@
   gap: 58px;
   width: 100%;
   max-width: variables.$max-width;
+
+  @media screen and (max-width: variables.$breakpoint-large-tablet) {
+    padding: 40px;
+  }
+
+  h1 {
+    text-align: center;
+  }
+
+  @media screen and (max-width: variables.$breakpoint-tablet) {
+    padding: 20px;
+  }
 }
