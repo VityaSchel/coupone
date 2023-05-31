@@ -1,0 +1,17 @@
+.modal {
+  display: flex;
+  flex-direction: column;
+  gap: 50px;
+  width: 350px !important;
+
+  .message {
+    font-weight: 600;
+    font-size: 24px;    
+  }
+ 
+
+  .buttons {
+    display: flex;
+    justify-content: flex-end;
+  }
+}

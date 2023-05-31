@@ -1,5 +1,5 @@
-import styles from './styles.module.scss'
 import React from 'react'
+import styles from './styles.module.scss'
 import { Formik } from 'formik'
 import { Headline } from '@/widgets/headline'
 import { PaymentPayResponse, PaymentResponse } from '@/shared/model/api/api'
@@ -10,6 +10,7 @@ import Checkbox from '@x5io/flat-uikit/dist/checkbox'
 import PaySystems from './pay_systems.svg'
 import { Timer } from '@/widgets/payment-page/timer'
 import { useRouter } from 'next/router'
+import { ImperativeModal, ImperativeModalRef } from '@/features/imperative-modal'
 
 export function PaymentForm({ payment, paymentID }: {
   payment: PaymentResponse
@@ -17,6 +18,7 @@ export function PaymentForm({ payment, paymentID }: {
 }) {
   const [expireDate, setExpireDate] = React.useState(new Date(Date.now() + 1000*60*60*2))
   const router = useRouter()
+  const modal = React.useRef<ImperativeModalRef>()
 
   React.useEffect(() => {
     const openDateString = window.localStorage.getItem(`payment_${paymentID}`)
@@ -72,7 +74,7 @@ export function PaymentForm({ payment, paymentID }: {
                 payResponse.cloudpayments,
                 {
                   onSuccess: function (options) {
-                    alert('Спасибо за покупку!')
+                    modal.current?.alert('Спасибо за покупку!')
                     router.push('/')
                   },
                   onFail: function (reason, options) { console.error(reason) }
@@ -125,6 +127,7 @@ export function PaymentForm({ payment, paymentID }: {
           </Formik>
         </div>
       </div>
+      <ImperativeModal ref={modal} />
     </section>
   )
 }
