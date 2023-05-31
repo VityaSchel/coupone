@@ -8,10 +8,17 @@ import { Modal } from '@/shared/ui/modal'
 import { SupportContacts } from '@/entities/support-contacts'
 import { Squash as Hamburger } from 'hamburger-react'
 import cx from 'classnames'
+import { useAppDispatch, useAppSelector } from '@/shared/store/hooks'
+import { logout, selectAuthentification } from '@/shared/store/slices/authentification'
 
 export function AppBar() {
   const [supportVisible, setSupportVisible] = React.useState(false)
   const [mobileMenuVisible, setMobileMenuVisible] = React.useState(false)
+
+  const { authentificated } = useAppSelector(selectAuthentification)
+  const dispatch = useAppDispatch()
+
+  const handleLogout = () => dispatch(logout())
 
   return (
     <header className={styles.header}>
@@ -35,7 +42,10 @@ export function AppBar() {
           <Link href='/about'>О компании</Link>
         </div>
         <div className={styles.buttons}>
-          <Link href='/login' className={styles.loginButton}><Button variant='alternative'>Войти</Button></Link>
+          {authentificated 
+            ? <Button className={styles.loginButton} variant='alternative' onClick={handleLogout}>Выйти</Button>
+            : <Link href='/login' className={styles.loginButton}><Button variant='alternative'>Войти</Button></Link>
+          }
           <Button onClick={() => setSupportVisible(true)} className={styles.supportButton}>Поддержка</Button>
           <Button onClick={() => setMobileMenuVisible(!mobileMenuVisible)} className={styles.mobileMenuButton}>
             <Hamburger 
@@ -44,7 +54,10 @@ export function AppBar() {
             />
           </Button>
           <div className={cx(styles.mobileMenu, { [styles.visible]: mobileMenuVisible })}>
-            <Link href='/login'>Вход</Link>
+            {authentificated 
+              ? <Button variant='text' className={styles.mobileLogoutButton} onClick={handleLogout}>Выйти</Button>
+              : <Link href='/login'>Вход</Link>
+            }
             <Link href='/contacts'>Контакты</Link>
             <Link href='/promos'>Все промокоды</Link>
             <Link href='/faq'>Вопросы и ответы</Link>

@@ -7,10 +7,13 @@ import { Input } from '@/shared/ui/input'
 import { LoginBody, LoginResponse } from '@/shared/model/api/api'
 import { useRouter } from 'next/router'
 import { ImperativeModal, ImperativeModalRef } from '@/features/imperative-modal'
+import { useAppDispatch } from '@/shared/store/hooks'
+import { login } from '@/shared/store/slices/authentification'
 
 export function LoginPageForm({ setResetScreen }: { setResetScreen: () => any }) {
   const router = useRouter()
   const modal = React.useRef<ImperativeModalRef>()
+  const dispatch = useAppDispatch()
 
   return (
     <>
@@ -40,7 +43,7 @@ export function LoginPageForm({ setResetScreen }: { setResetScreen: () => any })
                 response = await request.json() as LoginResponse
               } catch(e) {/**/}
               if(request.status === 200) {
-                response.token
+                dispatch(login({ token: response.token }))
                 router.push('/')
               } else {
                 if (response.message === 'user not found') {

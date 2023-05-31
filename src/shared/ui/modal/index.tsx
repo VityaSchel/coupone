@@ -3,11 +3,11 @@ import cx from 'classnames'
 import styles from './styles.module.scss'
 import { useHotkeys } from 'react-hotkeys-hook'
 
-export function Modal({ visible, onClose, className, children }: React.PropsWithChildren<{
+export function Modal({ visible, onClose, className, children, ...props }: React.PropsWithChildren<{
   visible: boolean
   onClose?: () => any
   className?: string
-}>) {
+}> & React.HTMLAttributes<HTMLDivElement>) {
   useHotkeys('esc', () => visible && onClose?.(), [visible, onClose])
 
   React.useEffect(() => {
@@ -26,6 +26,7 @@ export function Modal({ visible, onClose, className, children }: React.PropsWith
           onClose?.()
         }
       }}
+      {...props}
     >
       <div className={cx(styles.content, className)}>
         {children}

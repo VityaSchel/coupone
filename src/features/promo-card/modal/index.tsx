@@ -10,6 +10,8 @@ import Close from './close.svg'
 import copy from 'copy-to-clipboard'
 import { FaExclamationCircle } from 'react-icons/fa'
 import cx from 'classnames'
+import { useAppSelector } from '@/shared/store/hooks'
+import { selectAuthentification } from '@/shared/store/slices/authentification'
 
 export function PromoModal({ promo, visible, onClose, views }: {
   promo: Promo
@@ -24,8 +26,10 @@ export function PromoModal({ promo, visible, onClose, views }: {
     copy(promo.code)
   }
 
+  const { authentificated } = useAppSelector(selectAuthentification)
+
   return (
-    <Modal visible={visible} onClose={onClose} className={styles.modal}>
+    <Modal visible={visible} onClose={onClose} className={styles.modal} data-modal='true'>
       <div className={styles.content}>
         <div className={styles.image}>
           <Image src={promo.image} alt={promo.title} fill />
@@ -53,7 +57,7 @@ export function PromoModal({ promo, visible, onClose, views }: {
               month: 'long'
             }).format(new Date(promo.expireDate))}</span>
           </div>
-          {promo.authRequired && (
+          {(promo.authRequired && !authentificated) && (
             <div className={styles.authRequired}>
               <FaExclamationCircle />
               <span>Чтобы открыть доступ к данному промокоду - необходимо зарегистрироваться.</span>
@@ -68,7 +72,7 @@ export function PromoModal({ promo, visible, onClose, views }: {
       </div>
       <div className={styles.actions}>
         <span className={cx(styles.promocode, { [styles.disabled]: promo.authRequired })}>
-          {promo.authRequired ? '*'.repeat(promo.code.length) : promo.code}
+          {(promo.authRequired && !authentificated) ? '*'.repeat(promo.code.length) : promo.code}
         </span>
         <Button onClick={handleCopyPromo} disabled={promo.authRequired}>
           {isCopied ? 'Скопировано' : 'Скопировать промокод'}
