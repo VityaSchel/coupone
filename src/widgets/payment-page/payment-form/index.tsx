@@ -39,7 +39,7 @@ export function PaymentForm({ payment, paymentID }: {
         <div className={styles.timer}>
           <Timer from={expireDate} />
           <div className={styles.discount}>
-            Скидка {Math.round((1-(payment.amount/payment.amountWithoutDiscount))*100)}%
+            Скидка {Math.min(99, Math.ceil((1-(payment.amount/payment.amountWithoutDiscount))*100))}%
           </div>
         </div>
         <div className={styles.formContainer}>

@@ -5,7 +5,7 @@ import { Formik } from 'formik'
 import * as Yup from 'yup'
 import { Button } from '@/shared/ui/button'
 import HelpImage from '@/assets/subscription-page/help.svg'
-import { SubscriptionUnsubscribeBody } from '@/shared/model/api/api'
+import { ErrorResponse, SubscriptionUnsubscribeBody } from '@/shared/model/api/api'
 import { ImperativeModal, ImperativeModalRef } from '@/features/imperative-modal'
 
 export function SubscriptionPageUnsubsribeForm() {
@@ -43,7 +43,19 @@ function Form() {
               lastNumbers: values.last4digits
             } satisfies SubscriptionUnsubscribeBody)
           })
-            .then((response) => modal.current?.alert(response.status === 200 ? 'Вы успешно отписались!' : 'Ошибка!'))
+            .then(async (request) => {
+              if(request.status === 200) {
+                modal.current?.alert('Вы успешно отписались!')
+
+              } else {
+                const response = await request.json() as ErrorResponse
+                if (response.message === 'subscription not found') {
+                  modal.current?.alert('Ошибка! Подписка не найдена')
+                } else {
+                  modal.current?.alert('Ошибка!')
+                }
+              }
+            })
             .catch(() => modal.current?.alert('Ошибка!'))
             .finally(() => setSubmitting(false))
         }}
