@@ -2,6 +2,7 @@ import { PaymentResponse } from '@/shared/model/api/api'
 import { AppBar } from '@/widgets/app-bar'
 import { Footer } from '@/widgets/footer'
 import { PageContentWrapper } from '@/widgets/page-content-wrapper'
+import { DeactivatedLink } from '@/widgets/payment-page/deactivated-link'
 import { PaymentForm } from '@/widgets/payment-page/payment-form'
 import { GetServerSidePropsContext, GetServerSidePropsResult } from 'next'
 import Head from 'next/head'
@@ -20,6 +21,7 @@ export default function PaymentUUIDPage({ payment, paymentID }: PaymentPageProps
       </Head>
       <AppBar />
       <PageContentWrapper>
+        <DeactivatedLink isDeactivated={payment.status !== 'in_progress'} />
         <PaymentForm
           payment={payment}
           paymentID={paymentID}
