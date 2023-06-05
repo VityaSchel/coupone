@@ -1,10 +1,10 @@
-import { Headline } from '@/widgets/headline'
 import styles from './styles.module.scss'
+import { PageHero } from '@/entities/page-hero'
 
 export function AboutPageHeading() {
   return (
     <section className={styles.aboutPageHeading}>
-      <Headline variant='h1'>О компании</Headline>
+      <PageHero>О компании</PageHero>
     </section>
   )
 }
