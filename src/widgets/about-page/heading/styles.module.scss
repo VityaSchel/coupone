@@ -1,0 +1,21 @@
+@use '@/shared/styles/variables.scss' as variables;
+
+.aboutPageHeading {
+  width: 100%;
+  max-width: variables.$max-width;
+  background: url('../../../assets/about-page/heading.png');
+  background-color: #fff;
+  background-size: cover;
+  background-position: center;
+  height: 420px;
+  border-radius: 22px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 50px;
+
+  h1 {
+    font-weight: 800;
+    font-size: 69px;
+  }
+}
