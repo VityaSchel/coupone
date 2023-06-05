@@ -1,0 +1,6 @@
+@use '@/shared/styles/variables.scss' as variables;
+
+.aboutPageHeading {
+  width: 100%;
+  max-width: variables.$max-width;
+}

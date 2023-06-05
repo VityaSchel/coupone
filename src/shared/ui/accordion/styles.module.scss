@@ -1,0 +1,60 @@
+@use '@/shared/styles/variables.scss' as variables;
+
+.accordion {
+  border-bottom: 1px solid #CBC8E3;
+
+  .heading {
+    font: inherit;
+    font-weight: 600;
+    font-size: 28px;
+    background: none;
+    border: 0;
+    padding: 20px;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    cursor: pointer;
+    text-align: left;
+    gap: 20px;
+
+    @media screen and (max-width: variables.$breakpoint-tablet) {
+      font-size: 24px;
+    }
+
+    .arrow {
+      margin-left: auto;
+      background: url('./arrow.svg');
+      background-size: contain;
+      background-repeat: no-repeat;
+      width: 35px;
+      height: 35px;
+      display: block;
+      transition: transform 250ms ease-in-out;
+      flex-shrink: 0;
+      
+      &.open {
+        transform: rotate(-180deg);
+      }
+    }
+  }
+
+  .collapsableContent {
+    transition: height 250ms ease-in-out;
+    overflow: hidden;
+
+    .contents {
+      font-weight: 500;
+      font-size: 20px;
+      line-height: 145%;
+      letter-spacing: 0.01em;
+      color: #706D8A;
+      padding: 12px 10px 32px 10px;
+      white-space: pre-wrap;
+
+      @media screen and (max-width: variables.$breakpoint-tablet) {
+        font-size: 18px;
+      }
+    }
+  }
+
+}
