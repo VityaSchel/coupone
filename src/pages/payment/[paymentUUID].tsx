@@ -21,7 +21,7 @@ export default function PaymentUUIDPage({ payment, paymentID }: PaymentPageProps
       </Head>
       <AppBar />
       <PageContentWrapper>
-        <DeactivatedLink isDeactivated={payment.status !== 'in_progress'} />
+        <DeactivatedLink isDeactivated={payment.status !== 'in_process'} />
         <PaymentForm
           payment={payment}
           paymentID={paymentID}
