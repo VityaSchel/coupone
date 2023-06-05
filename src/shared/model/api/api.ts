@@ -60,6 +60,7 @@ export interface CouponResponse {
 }
 
 export interface CouponsResponse {
+  allCount: number;
   count: number;
   coupons: CouponResponse[];
 }
@@ -98,6 +99,7 @@ export interface PaymentPayResponse {
 export interface PaymentResponse {
   amount: number;
   amountWithoutDiscount: number;
+  email: string;
   firstCheckbox: string;
   secondCheckbox: string;
   status: string;
@@ -402,6 +404,7 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      * @tags coupon
      * @name CouponsList
      * @request GET:/coupons
+     * @secure
      */
     couponsList: (
       query?: {
@@ -418,6 +421,7 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
         path: `/coupons`,
         method: "GET",
         query: query,
+        secure: true,
         ...params,
       }),
   };
@@ -516,11 +520,11 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      *
      * @tags payment
      * @name PaymentsDetail
-     * @request GET:/payments/{uuid}
+     * @request GET:/payments/{id}
      */
-    paymentsDetail: (uuid: string, params: RequestParams = {}) =>
+    paymentsDetail: (id: string, params: RequestParams = {}) =>
       this.request<PaymentResponse, ErrorResponse>({
-        path: `/payments/${uuid}`,
+        path: `/payments/${id}`,
         method: "GET",
         ...params,
       }),
@@ -530,11 +534,11 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      *
      * @tags payment
      * @name GetPayments
-     * @request GET:/payments/{uuid}/pay
+     * @request GET:/payments/{id}/pay
      */
-    getPayments: (uuid: string, params: RequestParams = {}) =>
+    getPayments: (id: string, params: RequestParams = {}) =>
       this.request<PaymentPayResponse, ErrorResponse>({
-        path: `/payments/${uuid}/pay`,
+        path: `/payments/${id}/pay`,
         method: "GET",
         ...params,
       }),
@@ -544,11 +548,11 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      *
      * @tags payment
      * @name SetEmailCreate
-     * @request POST:/payments/{uuid}/set-email
+     * @request POST:/payments/{id}/set-email
      */
-    setEmailCreate: (uuid: string, payment_set_email: PaymentSetEmailBody, params: RequestParams = {}) =>
+    setEmailCreate: (id: string, payment_set_email: PaymentSetEmailBody, params: RequestParams = {}) =>
       this.request<void, ErrorResponse>({
-        path: `/payments/${uuid}/set-email`,
+        path: `/payments/${id}/set-email`,
         method: "POST",
         body: payment_set_email,
         type: ContentType.Json,

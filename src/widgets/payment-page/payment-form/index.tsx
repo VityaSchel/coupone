@@ -1,6 +1,6 @@
 import React from 'react'
 import styles from './styles.module.scss'
-import { Formik } from 'formik'
+import { Formik, FormikProps } from 'formik'
 import { Headline } from '@/widgets/headline'
 import { PaymentPayResponse, PaymentResponse } from '@/shared/model/api/api'
 import * as Yup from 'yup'
@@ -19,6 +19,8 @@ export function PaymentForm({ payment, paymentID }: {
   const [expireDate, setExpireDate] = React.useState(new Date(Date.now() + 1000*60*60*2))
   const router = useRouter()
   const modal = React.useRef<ImperativeModalRef>()
+  const formikRef = React.useRef<FormikProps<{ email: string }>>()
+  const isFirstRender = React.useRef(true)
 
   React.useEffect(() => {
     const openDateString = window.localStorage.getItem(`payment_${paymentID}`)
@@ -29,6 +31,20 @@ export function PaymentForm({ payment, paymentID }: {
       window.localStorage.setItem(`payment_${paymentID}`, String(newExpireDate.getTime()))
     } else {
       setExpireDate(new Date(openDate))
+    }
+  }, [])
+
+  React.useEffect(() => {
+    if(typeof window !== 'undefined') {
+      if (payment.email && isFirstRender.current) {
+        const interval = setInterval(() => {
+          if (formikRef.current && 'cp' in window) {
+            formikRef.current!.submitForm()
+            clearInterval(interval)
+          }
+        }, 500)
+        isFirstRender.current = false
+      }
     }
   }, [])
 
@@ -48,7 +64,7 @@ export function PaymentForm({ payment, paymentID }: {
             <span className={styles.new}>{payment.amount}₽</span>
           </div>
           <Formik
-            initialValues={{ email: '', checkbox1: false, checkbox2: false }}
+            initialValues={{ email: payment.email, checkbox1: Boolean(payment.email), checkbox2: Boolean(payment.email) }}
             validationSchema={
               Yup.object({
                 email: Yup.string().email('Введите почту').required('Это обязательное поле'),
@@ -81,6 +97,7 @@ export function PaymentForm({ payment, paymentID }: {
                 }
               )
             }}
+            innerRef={formikRef as any}
           >
             {({
               values,
