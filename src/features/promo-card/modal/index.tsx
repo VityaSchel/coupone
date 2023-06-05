@@ -28,6 +28,8 @@ export function PromoModal({ promo, visible, onClose, views }: {
 
   const { authentificated } = useAppSelector(selectAuthentification)
 
+  const disableAuthElements = promo.authRequired && !authentificated
+
   return (
     <Modal visible={visible} onClose={onClose} className={styles.modal} data-modal='true'>
       <div className={styles.content}>
@@ -57,7 +59,7 @@ export function PromoModal({ promo, visible, onClose, views }: {
               month: 'long'
             }).format(new Date(promo.expireDate))}</span>
           </div>
-          {(promo.authRequired && !authentificated) && (
+          {disableAuthElements && (
             <div className={styles.authRequired}>
               <FaExclamationCircle />
               <span>Чтобы открыть доступ к данному промокоду - необходимо зарегистрироваться.</span>
@@ -72,9 +74,9 @@ export function PromoModal({ promo, visible, onClose, views }: {
       </div>
       <div className={styles.actions}>
         <span className={cx(styles.promocode, { [styles.disabled]: promo.authRequired })}>
-          {(promo.authRequired && !authentificated) ? '*'.repeat(promo.code.length) : promo.code}
+          {disableAuthElements ? '*'.repeat(promo.code.length) : promo.code}
         </span>
-        <Button onClick={handleCopyPromo} disabled={promo.authRequired}>
+        <Button onClick={handleCopyPromo} disabled={disableAuthElements}>
           {isCopied ? 'Скопировано' : 'Скопировать промокод'}
         </Button>
       </div>

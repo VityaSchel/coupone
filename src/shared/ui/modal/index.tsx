@@ -8,27 +8,32 @@ export function Modal({ visible, onClose, className, children, ...props }: React
   onClose?: () => any
   className?: string
 }> & React.HTMLAttributes<HTMLDivElement>) {
+  const modalRef = React.useRef<HTMLDivElement>(null)
   useHotkeys('esc', () => visible && onClose?.(), [visible, onClose])
+  const randomModalID = React.useRef<number | undefined>()
 
   React.useEffect(() => {
-    if(visible) {
-      document.querySelector('html')?.classList.add(styles.bodyLock)
+    const root = document.querySelector('html')
+    if (root && modalRef.current) {
+      if(visible) {
+        if (randomModalID.current === undefined) randomModalID.current = Math.floor(Math.random()*Number.MAX_SAFE_INTEGER)
+        root.classList.add('scroll-lock-' + randomModalID.current)
+      } else {
+        root.classList.remove('scroll-lock-' + randomModalID.current)
+      }
     }
-  }, [visible])
-
-  const handleClose = () => {
-    document.querySelector('html')?.classList.remove(styles.bodyLock)
-    onClose?.()
-  }
+  }, [modalRef, visible])
 
   return (
-    <div 
+    <div
       className={cx(styles.modal, { [styles.visible]: visible })}
       onClick={(e) => {
-        if(e.currentTarget === e.target) {
-          handleClose()
+        if (e.currentTarget === e.target) {
+          onClose?.()
         }
       }}
+      ref={modalRef}
+      tabIndex={visible ? undefined : -1}
       {...props}
     >
       <div className={cx(styles.content, className)}>

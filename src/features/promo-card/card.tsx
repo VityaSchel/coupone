@@ -10,7 +10,7 @@ export function PromoCard({ promo, onOpen }: {
   onOpen: () => any
 }) {
   return (
-    <Card className={styles.card}>
+    <Card className={styles.card} rootHTMLTag='button' onClick={() => onOpen()}>
       <div className={styles.image}>
         <Image src={promo.image} alt={`Промокод ${promo.title}`} fill />
       </div>
@@ -28,7 +28,7 @@ export function PromoCard({ promo, onOpen }: {
         <Rate value={promo.rate} />
       </div>
       <div className={styles.actions}>
-        <Button onClick={() => onOpen()}>Посмотреть</Button>
+        <Button>Посмотреть</Button>
       </div>
     </Card>
   )

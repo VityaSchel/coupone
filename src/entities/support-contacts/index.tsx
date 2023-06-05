@@ -16,7 +16,7 @@ export function SupportContacts() {
         </Link>
       </div>
       <span className={styles.text}>Поможем в любом вопросе</span>
-      <Link href={`tel:+${phone}`} className={styles.phone}>
+      <Link href={`tel:+7${phone.slice(1).join('')}`} className={styles.phone}>
         +7 ({phone[1]}) {phone[2]}-{phone[3]}-{phone[4]}
       </Link>
       <span className={styles.time}>Время работы: <span>{process.env.NEXT_PUBLIC_SUPPORT_TIME}</span></span>
