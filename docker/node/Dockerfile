@@ -1,0 +1,46 @@
+# syntax=docker/dockerfile:1
+FROM node:16.13.0-alpine as install
+
+ARG NPM_TOKEN
+
+WORKDIR /app
+
+#COPY node_modules node_modules
+COPY .npmrc .npmrc
+COPY package.json package.json
+COPY yarn.lock yarn.lock
+
+RUN yarn install --check-files
+RUN rm -r .npmrc
+
+FROM node:16.13.0-alpine as builder
+
+ARG NEXT_PUBLIC_BACKEND_URL
+ARG NEXT_PUBLIC_DATA_POLICY
+ARG NEXT_PUBLIC_TARIFFS
+ARG NEXT_PUBLIC_USER_AGREEMENT
+ARG NEXT_PUBLIC_SUPPORT_EMAIL
+ARG NEXT_PUBLIC_SUPPORT_PHONE
+ARG NEXT_PUBLIC_SUPPORT_TIME
+ARG NEXT_PUBLIC_COMPANY_NAME
+ARG NEXT_PUBLIC_COMPANY_INN
+ARG NEXT_PUBLIC_COMPANY_OGRNIP
+
+WORKDIR /app
+
+COPY . .
+
+RUN echo NEXT_PUBLIC_BACKEND_URL=$NEXT_PUBLIC_BACKEND_URL >> .env.local && \
+    echo NEXT_PUBLIC_DATA_POLICY=$NEXT_PUBLIC_DATA_POLICY >> .env.local && \
+    echo NEXT_PUBLIC_TARIFFS=$NEXT_PUBLIC_TARIFFS >> .env.local && \
+    echo NEXT_PUBLIC_USER_AGREEMENT=$NEXT_PUBLIC_USER_AGREEMENT >> .env.local && \
+    echo NEXT_PUBLIC_SUPPORT_EMAIL=NEXT_PUBLIC_SUPPORT_EMAIL >> .env.local && \
+     echo NEXT_PUBLIC_SUPPORT_TIME=NEXT_PUBLIC_SUPPORT_TIME >> .env.local && \
+    echo NEXT_PUBLIC_SUPPORT_PHONE=NEXT_PUBLIC_SUPPORT_PHONE >> .env.local && \
+    echo NEXT_PUBLIC_COMPANY_NAME=$NEXT_PUBLIC_COMPANY_NAME >> .env.local && \
+    echo NEXT_PUBLIC_COMPANY_INN=$NEXT_PUBLIC_COMPANY_INN >> .env.local && \
+    echo NEXT_PUBLIC_COMPANY_OGRNIP=$NEXT_PUBLIC_COMPANY_OGRNIP >> .env.local
+
+RUN yarn build
+
+CMD ["yarn", "start"]

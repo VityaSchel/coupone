@@ -1,0 +1,140 @@
+stages:
+  - prepare
+  - build
+  - deploy
+
+image: docker:${DOCKER_VERSION}
+variables:
+  DOCKER_BUILDKIT: 1
+  DOCKER_VERSION: 20.10.17
+
+.docker_init_template:
+  - docker login -u $DOCKER_REGISTRY_USER -p $DOCKER_REGISTRY_PASSWORD $DOCKER_REGISTRY
+
+.ssh_init_template:
+  - mkdir -p ~/.ssh
+  - echo "$SSH_PRIVATE_KEY" | tr -d '\r' > ~/.ssh/id_rsa
+  - chmod 600 ~/.ssh/id_rsa
+  - chmod 700 ~/.ssh
+  - echo "$SSH_KNOWN_HOSTS" >> ~/.ssh/known_hosts
+  - chmod 644 ~/.ssh/known_hosts
+  - eval $(ssh-agent -s)
+  - ssh-add ~/.ssh/id_rsa
+
+install:
+  stage: prepare
+  services:
+    - name: docker:${DOCKER_VERSION}-dind
+      command: ["--registry-mirror", "https://registry-proxy.x5.money"]
+  cache:
+    - key:
+        files:
+          - yarn.lock
+      paths:
+        - node_modules
+      policy: pull-push
+  before_script:
+    - !reference [.docker_init_template]
+  script:
+    - mkdir -p node_modules
+
+    - >
+      docker build
+      --file docker/node/Dockerfile
+      --target install
+      --tag $DOCKER_REGISTRY_PATH:$CI_COMMIT_REF_NAME-install
+      .
+
+    - rm -rf node_modules
+
+    - docker create --name node $DOCKER_REGISTRY_PATH:$CI_COMMIT_REF_NAME-install
+    - docker cp node:/app/node_modules $CI_PROJECT_DIR/
+
+.build_production_template:
+  stage: build
+  services:
+    - name: docker:${DOCKER_VERSION}-dind
+      command: ["--registry-mirror", "https://registry-proxy.x5.money"]
+  cache:
+    - key:
+        files:
+          - yarn.lock
+      paths:
+        - node_modules
+      policy: pull
+    - key: next-cache-${PROJECT_NAME}-${CI_COMMIT_REF_SLUG}
+      paths:
+        - .next/cache
+      policy: pull-push
+  before_script:
+    - !reference [.docker_init_template]
+  script:
+    - mkdir -p .next/cache
+
+    - >
+      docker build
+      --file docker/node/Dockerfile
+      --build-arg BUILDKIT_INLINE_CACHE=1
+      --cache-from $DOCKER_REGISTRY_PATH:$CI_COMMIT_REF_NAME-$PROJECT_NAME
+      --target builder
+      --tag $DOCKER_REGISTRY_PATH:$CI_COMMIT_REF_NAME-$PROJECT_NAME
+      --build-arg NEXT_PUBLIC_BACKEND_URL=$NEXT_PUBLIC_BACKEND_URL
+      --build-arg NEXT_PUBLIC_DATA_POLICY=$NEXT_PUBLIC_DATA_POLICY
+      --build-arg NEXT_PUBLIC_TARIFFS=$NEXT_PUBLIC_TARIFFS
+      --build-arg NEXT_PUBLIC_USER_AGREEMENT=$NEXT_PUBLIC_USER_AGREEMENT
+      --build-arg NEXT_PUBLIC_SUPPORT_EMAIL=$NEXT_PUBLIC_SUPPORT_EMAIL
+      --build-arg NEXT_PUBLIC_SUPPORT_PHONE=$NEXT_PUBLIC_SUPPORT_PHONE
+      --build-arg NEXT_PUBLIC_SUPPORT_TIME=$NEXT_PUBLIC_SUPPORT_TIME
+      --build-arg NEXT_PUBLIC_COMPANY_NAME="$NEXT_PUBLIC_COMPANY_NAME"
+      --build-arg NEXT_PUBLIC_COMPANY_INN=$NEXT_PUBLIC_COMPANY_INN
+      --build-arg NEXT_PUBLIC_COMPANY_OGRNIP=$NEXT_PUBLIC_COMPANY_OGRNIP
+      .
+
+    - rm -rf .next/cache
+
+    - docker create --name main_page $DOCKER_REGISTRY_PATH:$CI_COMMIT_REF_NAME-$PROJECT_NAME
+    - docker cp main_page:/app/.next/cache $CI_PROJECT_DIR/.next/cache
+
+    - docker push $DOCKER_REGISTRY_PATH:$CI_COMMIT_REF_NAME-$PROJECT_NAME
+  rules:
+    - if: $CI_COMMIT_BRANCH == "main"
+
+.deploy_production_template:
+  stage: deploy
+  environment:
+    name: production-${PROJECT_NAME}
+  variables:
+    COMPOSE_PROJECT_NAME: ${PROJECT_NAME}_main_page
+    LANDING_IMAGE: $DOCKER_REGISTRY_PATH:$CI_COMMIT_REF_NAME-$PROJECT_NAME
+    DOCKER_HOST: $DEPLOY_PROD_DOCKER_HOST
+  before_script:
+    - !reference [.ssh_init_template]
+    - !reference [.docker_init_template]
+  script:
+    - docker compose pull  frontend
+
+    - docker compose up -d --wait
+  rules:
+    - if: $CI_COMMIT_BRANCH == "main"
+
+build_couponssru:
+  extends: .build_production_template
+  variables:
+    PROJECT_NAME: couponssru
+    NEXT_PUBLIC_BACKEND_URL: https://api.couponss.ru
+    NEXT_PUBLIC_DATA_POLICY: https://docs.google.com/document/d/1abRly0p5Zs_M_k_SBJmGXenlxmucSQW8EtjKo_1dHkU/edit?usp=sharing
+    NEXT_PUBLIC_TARIFFS: https://cdn.couponss.online/tariffs.pdf
+    NEXT_PUBLIC_USER_AGREEMENT: https://docs.google.com/document/d/1hR5cX6ciCD1CAYityn1Crum53pFQgaQH5kx-WOj-cyY/edit?usp=sharing
+    NEXT_PUBLIC_TEXT_SECOND_CHECKBOX: Нажимая кнопку “Оплатить” Вы оплачиваете 11₽ и подтверждаете ознакомление с автоматическими списаниями. Через 24 часа, будет совершено автоматическое продление за 989 руб. на 14 дней, 589 руб. на 7 дней или 289 руб. за 3 дня
+    NEXT_PUBLIC_SUPPORT_EMAIL: hi@hloth.dev
+    NEXT_PUBLIC_SUPPORT_PHONE: 79019404698
+    NEXT_PUBLIC_SUPPORT_TIME: 10:00-19:00
+    NEXT_PUBLIC_COMPANY_NAME: ИП Хардин Игорь Александрович
+    NEXT_PUBLIC_COMPANY_INN: 132611240273
+    NEXT_PUBLIC_COMPANY_OGRNIP: 323130000008760
+
+deploy_production_couponssru:
+  extends: .deploy_production_template
+  variables:
+    PROJECT_NAME: couponssru
+    VIRTUAL_HOST: couponss.ru

@@ -10,10 +10,10 @@ export function Footer() {
           {'coupone.ru\n© 2022-2023'}
         </span>
         <div className={styles.links}>
-          <Link href={process.env.NEXT_PUBLIC_LINKS_LICENSE_AGREEMENT ?? ''}>Лицензионный договор оферты</Link>
-          <Link href={process.env.NEXT_PUBLIC_LINKS_SUBSCRIPTION_AGREEMENT ?? ''}>Договор на оформление платной подписки</Link>
-          <Link href={process.env.NEXT_PUBLIC_LINKS_PRIVACY_POLICY ?? ''}>Политика конфиденциальности</Link>
-          <Link href={process.env.NEXT_PUBLIC_LINKS_CONTACTS ?? ''}>Связаться с нами</Link>
+          <Link href={process.env.NEXT_PUBLIC_LINKS_LICENSE_AGREEMENT ?? ''}>Пользовательское соглашение</Link>
+          <Link href={process.env.NEXT_PUBLIC_LINKS_SUBSCRIPTION_AGREEMENT ?? ''}>Тарифы</Link>
+          <Link href={process.env.NEXT_PUBLIC_LINKS_PRIVACY_POLICY ?? ''}>Политика обработки данных</Link>
+          {/*<Link href={process.env.NEXT_PUBLIC_LINKS_CONTACTS ?? ''}>Связаться с нами</Link>*/}
         </div>
         <Link href='/subscription'>
           <Button>Отписаться</Button>
