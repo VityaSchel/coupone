@@ -14,17 +14,7 @@ export function PromoGrid({ promos }: {
       {promos.map(promo => (
         <Promo
           key={`${promo.name} ${promo.code}`}
-          promo={{
-            authRequired: promo.authRequired,
-            title: promo.name,
-            description: promo.description,
-            image: promo.image,
-            addDate: promo.dateAdded,
-            expireDate: promo.validUntil,
-            rate: promo.rating as 0 | 1 | 2 | 3 | 4 | 5,
-            sale: promo.discountDescription,
-            code: promo.code
-          }}
+          promo={promo}
           views={promo.views}
         />
       ))}

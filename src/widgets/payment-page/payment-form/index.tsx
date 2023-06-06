@@ -89,11 +89,11 @@ export function PaymentForm({ payment, paymentID }: {
               widget.pay('auth',
                 payResponse.cloudpayments,
                 {
-                  onSuccess: function (options) {
+                  onSuccess: function () {
                     modal.current?.alert('Спасибо за покупку!')
                     router.push('/')
                   },
-                  onFail: function (reason, options) { console.error(reason) }
+                  onFail: function (reason: string) { console.error(reason) }
                 }
               )
             }}

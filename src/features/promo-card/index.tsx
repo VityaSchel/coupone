@@ -1,10 +1,10 @@
 import React from 'react'
 import { PromoCard } from '@/features/promo-card/card'
-import { Promo } from '@/shared/model/promo'
 import { PromoModal } from '@/features/promo-card/modal'
+import { CouponResponse } from '@/shared/model/api/api'
 
 export function Promo({ promo, views }: {
-  promo: Promo
+  promo: CouponResponse
   views: number
 }) {
   const [modalVisible, setModalVisible] = React.useState(false)

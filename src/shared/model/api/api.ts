@@ -46,13 +46,14 @@ export interface CloudpaymentsReceipt {
 
 export interface CouponResponse {
   authRequired: boolean;
-  code: string;
+  code: string | null;
   dateAdded: string;
   description: string;
   discountDescription: string;
   hot: boolean;
   id: number;
   image: string;
+  link: string;
   name: string;
   rating: number;
   validUntil: string;
