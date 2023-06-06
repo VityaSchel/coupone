@@ -21,7 +21,6 @@ export default function KingComboPaymentUUIDPage({ payment, paymentID }: Payment
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <AppBar />
       <KingComboPaymentPageWrapper>
         <DeactivatedLink isDeactivated={payment.status !== 'in_process'} />
         <Image src={Banner} alt='Баннер с комбо' width={250} />
@@ -30,7 +29,6 @@ export default function KingComboPaymentUUIDPage({ payment, paymentID }: Payment
           paymentID={paymentID}
         />
       </KingComboPaymentPageWrapper>
-      <Footer />
       <Script src="https://widget.cloudpayments.ru/bundles/cloudpayments.js"></Script>
     </>
   )
