@@ -10,6 +10,8 @@ import { Squash as Hamburger } from 'hamburger-react'
 import cx from 'classnames'
 import { useAppDispatch, useAppSelector } from '@/shared/store/hooks'
 import { logout, selectAuthentification } from '@/shared/store/slices/authentification'
+import { IconButton } from '@/shared/ui/icon-button'
+import Close from '@/assets/close.svg'
 
 export function AppBar() {
   const [supportVisible, setSupportVisible] = React.useState(false)
@@ -67,6 +69,7 @@ export function AppBar() {
             visible={supportVisible}
             onClose={() => setSupportVisible(false)}
           >
+            <IconButton onClick={() => setSupportVisible(false)}><Close /></IconButton>
             <SupportContacts />
           </Modal>
         </div>

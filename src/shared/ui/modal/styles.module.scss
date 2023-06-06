@@ -31,5 +31,7 @@
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.55);
     transition: transform 120ms ease-in-out;
     transform: translateY(-20px);
+    display: flex;
+    flex-direction: column;
   }
 }

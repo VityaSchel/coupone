@@ -1,0 +1,17 @@
+.iconButton {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: none;
+  width: 32px;
+  height: 32px;
+  border: 0;
+  padding: 8px;
+  cursor: pointer;
+  align-self: flex-end;
+
+  svg {
+    width: 100%;
+    height: 100%;
+  }
+}

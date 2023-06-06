@@ -38,11 +38,19 @@
       grid-template-columns: repeat(2, 1fr);
       grid-template-rows: auto;
       font-weight: 500;
-      font-size: 18px;
       // line-height: 2px;
       letter-spacing: 0.01em;
       color: #8C93AF;
       gap: 12px;
+
+      > * {
+        font-size: 18px !important;
+        padding: 0px !important;
+        justify-content: flex-start;
+        line-height: normal;
+        font-weight: 400;
+        align-items: flex-start;
+      }
 
       @media screen and (max-width: variables.$breakpoint-tablet) {
         grid-template-columns: auto;
