@@ -1,5 +1,5 @@
 # syntax=docker/dockerfile:1
-FROM node:16.13.0-alpine as install
+FROM node:16.14.0-alpine as install
 
 ARG NPM_TOKEN
 
@@ -35,7 +35,7 @@ RUN echo NEXT_PUBLIC_BACKEND_URL=$NEXT_PUBLIC_BACKEND_URL >> .env.local && \
     echo NEXT_PUBLIC_TARIFFS=$NEXT_PUBLIC_TARIFFS >> .env.local && \
     echo NEXT_PUBLIC_USER_AGREEMENT=$NEXT_PUBLIC_USER_AGREEMENT >> .env.local && \
     echo NEXT_PUBLIC_SUPPORT_EMAIL=NEXT_PUBLIC_SUPPORT_EMAIL >> .env.local && \
-     echo NEXT_PUBLIC_SUPPORT_TIME=NEXT_PUBLIC_SUPPORT_TIME >> .env.local && \
+    echo NEXT_PUBLIC_SUPPORT_TIME=NEXT_PUBLIC_SUPPORT_TIME >> .env.local && \
     echo NEXT_PUBLIC_SUPPORT_PHONE=NEXT_PUBLIC_SUPPORT_PHONE >> .env.local && \
     echo NEXT_PUBLIC_COMPANY_NAME=$NEXT_PUBLIC_COMPANY_NAME >> .env.local && \
     echo NEXT_PUBLIC_COMPANY_INN=$NEXT_PUBLIC_COMPANY_INN >> .env.local && \
