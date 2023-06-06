@@ -8,6 +8,11 @@
   width: 100%;
   position: relative;
   overflow: hidden;
+  min-height: 100vh;
+
+  @supports (min-height: 100lvh) {
+    min-height: 100lvh;
+  }
 
   .bg1 {
     width: 180px;
