@@ -30,7 +30,7 @@ export default function AllPromosPage({ initialPromos }: AllPromosPageProps) {
 
 export async function getServerSideProps(): Promise<GetServerSidePropsResult<AllPromosPageProps>> {
   const allPromosRequest = await fetch(process.env.NEXT_PUBLIC_BACKEND_URL + '/coupons?' + new URLSearchParams({
-    'filter[hot]': 'false',
+    // 'filter[hot]': 'false',
     limit: String(4 * 1),
     offset: '0'
   }))

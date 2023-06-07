@@ -16,7 +16,7 @@ export function AllPromosPageGrid({ initialList }: {
   const loadMore = async () => {
     setIsLoading(true)
     const newCouponsRequest = await fetch(process.env.NEXT_PUBLIC_BACKEND_URL + '/coupons?' + new URLSearchParams({
-      'filter[hot]': 'true',
+      // 'filter[hot]': 'true',
       limit: String(4 * 1),
       offset: String(offset)
     }))
