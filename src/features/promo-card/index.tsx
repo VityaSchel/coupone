@@ -7,11 +7,17 @@ export function Promo({ promo, views }: {
   promo: CouponResponse
   views: number
 }) {
+  const isFirstOpen = React.useRef(true)
   const [modalVisible, setModalVisible] = React.useState(false)
 
   const handleOpenPromo = () => {
-    // TODO: update counter
     setModalVisible(true)
+    if (isFirstOpen.current) {
+      fetch(process.env.NEXT_PUBLIC_BACKEND_URL + '/coupons/' + promo.id + '/add-views', {
+        method: 'PATCH'
+      })
+    }
+    isFirstOpen.current = false
   }
 
   return (

@@ -89,17 +89,26 @@ export function PromoModal({ promo, visible, onClose, views }: {
             : 'Действует по ссылке'
           }
         </span>
-        {promo.link 
+        {promo.code 
           ? (
-            <Link href={'https://'+promo.link}>
-              <Button>
-                Перейти по ссылке
-              </Button>
-            </Link>
-          ) : (
             <Button onClick={handleCopyPromo} disabled={disableAuthElements}>
               {isCopied ? 'Скопировано' : 'Скопировать промокод'}
             </Button>
+          ) : (
+            disableAuthElements
+              ? (
+                <Link href={'/login'}>
+                  <Button>
+                    Авторизоваться
+                  </Button>
+                </Link>
+              ) : (
+                <Link href={'https://' + promo.link}>
+                  <Button disabled={disableAuthElements}>
+                    Перейти по ссылке
+                  </Button>
+                </Link>
+              )
           )
         }
       </div>
