@@ -14,7 +14,7 @@ export function Footer() {
     <footer className={styles.footerContainer}>
       <div className={styles.footer}>
         <span className={styles.text}>
-          {'coupone.ru\n© 2022-2023'}
+          {'couponss.ru\n© 2022-2023'}
         </span>
         <div className={styles.links}>
           <Link href={process.env.NEXT_PUBLIC_USER_AGREEMENT ?? ''}>Пользовательское соглашение</Link>
