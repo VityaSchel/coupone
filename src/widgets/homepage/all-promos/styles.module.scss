@@ -23,7 +23,7 @@
     justify-content: space-between;
     gap: 24px;
 
-    > * {
+    > div:not([data-modal]) {
       width: 25%;
     }
 
