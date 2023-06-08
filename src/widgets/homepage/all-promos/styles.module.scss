@@ -30,11 +30,19 @@
     @media screen and (max-width: 930px) {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
+
+      > div:not([data-modal]) {
+        width: 100%;
+      }
     }
 
     @media screen and (max-width: variables.$breakpoint-tablet) {
       display: flex;
       flex-direction: column;
+
+      > div:not([data-modal]) {
+        width: 100%;
+      }
     }
   }
 
