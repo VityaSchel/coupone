@@ -29,7 +29,7 @@ const nextConfig = {
     return config
   },
   images: {
-    domains: ['placehold.co', 'x5io-coupone.netlify.app', 'cdn.couponss.online']
+    domains: ['placehold.co', 'x5io-coupone.netlify.app', 'cdn.couponss.online', 'picsum.photos']
   },
   typescript: {
     ignoreBuildErrors: true

@@ -12,12 +12,12 @@ export function Promo({ promo, views }: {
 
   const handleOpenPromo = () => {
     setModalVisible(true)
-    if (isFirstOpen.current) {
-      fetch(process.env.NEXT_PUBLIC_BACKEND_URL + '/coupons/' + promo.id + '/add-views', {
-        method: 'PATCH'
-      })
-    }
-    isFirstOpen.current = false
+    // if (isFirstOpen.current) {
+    //   fetch(process.env.NEXT_PUBLIC_BACKEND_URL + '/coupons/' + promo.id + '/add-views', {
+    //     method: 'PATCH'
+    //   })
+    // }
+    // isFirstOpen.current = false
   }
 
   return (
